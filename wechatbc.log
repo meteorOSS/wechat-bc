@@ -59,3 +59,23 @@
 20:23:16.370 [main] INFO  WeChatBcTest - 已确认登陆
 20:23:17.525 [main] INFO  WeChatBcTest - 已取得登录信息:
 20:23:17.525 [main] INFO  WeChatBcTest - BaseRequest{uin='1238806619', sid='NCBHzXxjy0OBzwar', skey='@crypt_d1445a2c_f767731becc7ca7369c961d384b7670c', deviceId='null', dataTicket='null', passTicket='GjQJyQNaXQq0IBL7XpU8zW6yZElfTgdiZghrxtAX11c%2BZ8hsQTd6DtBSK%2Fu%2FIZkxRNKfpkBmIqfaBxWE7INlYw%3D%3D', authTicket='null'}
+20:26:32.345 [main] INFO  WeChatBcTest - 已扫描二维码，请确认登陆
+20:26:42.963 [main] INFO  WeChatBcTest - 已确认登陆
+20:26:43.930 [main] INFO  WeChatBcTest - 已取得登录信息:
+20:26:43.930 [main] INFO  WeChatBcTest - BaseRequest{uin='1238806619', sid='nufDUk+EqZRH2/Mt', skey='@crypt_d1445a2c_845f9ad744d7c6936b07e6196872cd5a', deviceId='null', dataTicket='null', passTicket='QjnEBhvRabwGxL3ohy66RvOmx7tBrj5jkPfGWxMLt4lOpQl%2FcLmcavmBb2cry6wy81eRfXAiu29eQjordZpTQw%3D%3D', authTicket='null'}
+20:27:22.216 [main] INFO  WeChatBcTest - 已扫描二维码，请确认登陆
+20:27:32.891 [main] INFO  WeChatBcTest - 已确认登陆
+20:27:33.643 [main] INFO  WeChatBcTest - 已取得登录信息:
+20:27:33.643 [main] INFO  WeChatBcTest - BaseRequest{uin='1238806619', sid='z7yz+pyzs206r5Fk', skey='@crypt_d1445a2c_a965ca63a935793f8d7a55b8673568dc', deviceId='null', dataTicket='null', passTicket='QIgqEWB%2FfAXKNDN1drEF10xHngnKvSHtCJTOEKRdql8AJ9pVHLQ6PKVpLLZUhNSlV%2Fbw0f9ZLoBXl28GD8sejw%3D%3D', authTicket='null'}
+20:28:32.759 [main] INFO  WeChatBcTest - 已扫描二维码，请确认登陆
+20:28:42.703 [main] INFO  WeChatBcTest - 已确认登陆
+20:28:43.500 [main] INFO  WeChatBcTest - 已取得登录信息:
+20:28:43.500 [main] INFO  WeChatBcTest - BaseRequest{uin='1238806619', sid='2in4gCzlY9wOt8MT', skey='@crypt_d1445a2c_13701087b3883dc68378c3c802aa050c', deviceId='null', dataTicket='null', passTicket='KAZhnHzgcE4hkiqKqNlWPxkLLokYjbvRIfQ6lvyO3C8KGdMRg23Au1spMTwcwjsY0b45DG2ks3YmxjXcFu71IQ%3D%3D', authTicket='null'}
+20:29:20.384 [main] INFO  WeChatBcTest - 已扫描二维码，请确认登陆
+20:29:30.272 [main] INFO  WeChatBcTest - 已确认登陆
+20:29:31.373 [main] INFO  WeChatBcTest - 已取得登录信息:
+20:29:31.373 [main] INFO  WeChatBcTest - BaseRequest{uin='1238806619', sid='8ofQhKoPvf4xa//Q', skey='@crypt_d1445a2c_68beafa6e38f546c875e8a2f19df69c9', deviceId='null', dataTicket='null', passTicket='S4OrmeS7ITA4Lvb2nKWS0jK%2Fnd9sf4%2F3MY30NLXUn%2FpGixelS1%2FsWZcCDlSdBWUDxbWxW%2FdLI4h8Ik9tswWsWA%3D%3D', authTicket='null'}
+20:30:27.433 [main] INFO  WeChatBcTest - 已扫描二维码，请确认登陆
+20:30:37.991 [main] INFO  WeChatBcTest - 已确认登陆
+20:30:39.077 [main] INFO  WeChatBcTest - 已取得登录信息:
+20:30:39.077 [main] INFO  WeChatBcTest - BaseRequest{uin='1238806619', sid='l41cmUUuEKSKl87l', skey='@crypt_d1445a2c_ded80d165f4c01601a768338b190b88f', deviceId='null', dataTicket='null', passTicket='FSXA64lua3IJSBbZ8IuW2MuxqTxEo8Fl2biDu9m1ikvdjTlqgOluaDP7JubhPq033YMxB4SE5OBVqyjmcMAkgQ%3D%3D', authTicket='CIsBELjr/9sFGoABqW1aVEsLwqhh3A3dW9MjX+VskcWO43P4wJvzEwApx6yAxi3uUUAKLe8NrWCasQKWgr0HYPFlqnbZfFa20MPYMbOjt+056bh38YwSa2oV59saUhJYJneNTqvYSZqk2PlPUKZ+/O4l7U5S0cp3/rk01Ncyhb4myfsX39BwJYis/7E='}

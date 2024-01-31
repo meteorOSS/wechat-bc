@@ -119,16 +119,15 @@ public class WeChatLogin {
             for (Cookie cookie : cookies) {
                 String name = cookie.name();
                 if (name.startsWith("webwx_data_ticket")) {
-                    baseRequest.setDataTicket(HttpUrlHelper.getValueByKey(name, "webwx_data_ticket"));
+                    baseRequest.setDataTicket(cookie.value());
                 } else if (name.startsWith("webwx_auth_ticket")) {
-                    baseRequest.setAuthTicket(HttpUrlHelper.getValueByKey(name, "webwx_auth_ticket"));
+                    baseRequest.setAuthTicket(cookie.value());
                 }
-                return baseRequest;
             }
+            return baseRequest;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     // 打印二维码
