@@ -2,6 +2,7 @@ package com.meteor.wechatbc.impl.model;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
+import com.meteor.wechatbc.entitiy.session.SyncKey;
 import lombok.Data;
 import okhttp3.Cookie;
 
@@ -16,5 +17,11 @@ public class Session {
     BaseRequest baseRequest;
 
     @JSONField(serialize = false)
+    WxInitInfo wxInitInfo;
+
+    @JSONField(serialize = false)
     List<Cookie> initCookie;
+
+    @JSONField(name = "SyncKey")
+    SyncKey syncKey;
 }

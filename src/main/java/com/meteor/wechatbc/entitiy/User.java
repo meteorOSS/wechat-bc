@@ -2,12 +2,14 @@ package com.meteor.wechatbc.entitiy;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class User {
 
     @JSONField(name = "Uin")
-    private long uin;
+    private Long uin;
 
     @JSONField(name = "UserName")
     private String userName;
@@ -34,32 +36,34 @@ public class User {
     private String remarkPYQuanPin;
 
     @JSONField(name = "HideInputBarFlag")
-    private int hideInputBarFlag;
+    private Integer hideInputBarFlag;
 
     @JSONField(name = "StarFriend")
-    private int starFriend;
+    private Integer starFriend;
 
     @JSONField(name = "Sex")
-    private int sex;
+    private Integer sex;
 
     @JSONField(name = "Signature")
     private String signature;
 
     @JSONField(name = "AppAccountFlag")
-    private int appAccountFlag;
+    private Integer appAccountFlag;
 
     @JSONField(name = "VerifyFlag")
-    private int verifyFlag;
+    private Integer verifyFlag;
 
     @JSONField(name = "ContactFlag")
-    private int contactFlag;
+    private Integer contactFlag;
 
     @JSONField(name = "WebWxPluginSwitch")
-    private int webWxPluginSwitch;
+    private Integer webWxPluginSwitch;
 
     @JSONField(name = "HeadImgFlag")
-    private int headImgFlag;
+    private Integer headImgFlag;
 
     @JSONField(name = "SnsFlag")
-    private int snsFlag;
+    private Integer snsFlag;
+
+
 }
