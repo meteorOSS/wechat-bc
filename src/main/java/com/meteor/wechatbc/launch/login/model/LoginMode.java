@@ -1,4 +1,4 @@
-package com.meteor.wechatbc.util.login.model;
+package com.meteor.wechatbc.launch.login.model;
 
 public enum LoginMode{
         LOGIN_MODE408(401,"等待扫码中..."),

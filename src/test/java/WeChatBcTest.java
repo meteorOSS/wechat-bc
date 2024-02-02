@@ -1,6 +1,6 @@
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.impl.WeChatClient;
-import com.meteor.wechatbc.util.login.WeChatLogin;
+import com.meteor.wechatbc.launch.login.WeChatLogin;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

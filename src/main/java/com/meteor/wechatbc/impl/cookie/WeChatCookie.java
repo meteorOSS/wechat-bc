@@ -1,6 +1,5 @@
 package com.meteor.wechatbc.impl.cookie;
 
-import com.meteor.wechatbc.util.login.cokkie.WeChatCookieJar;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;

@@ -1,9 +1,9 @@
-package com.meteor.wechatbc.util.login;
+package com.meteor.wechatbc.launch.login;
 
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
-import com.meteor.wechatbc.util.login.cokkie.WeChatCookieJar;
-import com.meteor.wechatbc.util.login.model.LoginMode;
-import com.meteor.wechatbc.util.login.model.QRCodeResponse;
+import com.meteor.wechatbc.launch.login.cokkie.WeChatCookieJar;
+import com.meteor.wechatbc.launch.login.model.LoginMode;
+import com.meteor.wechatbc.launch.login.model.QRCodeResponse;
 import com.meteor.wechatbc.util.BaseConfig;
 import com.meteor.wechatbc.util.HttpUrlHelper;
 import okhttp3.*;

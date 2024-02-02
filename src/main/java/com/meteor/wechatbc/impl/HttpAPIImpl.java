@@ -42,6 +42,7 @@ public class HttpAPIImpl implements HttpAPI {
 
     @Override
     public void initWeChat() {
+
         HttpUrl httpUrl = URL.BASE_URL.newBuilder()
                 .encodedPath(URL.WXINIT)
                 .addQueryParameter("_",String.valueOf(System.currentTimeMillis()))

@@ -1,4 +1,4 @@
-package com.meteor.wechatbc.util.login.cokkie;
+package com.meteor.wechatbc.launch.login.cokkie;
 
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
