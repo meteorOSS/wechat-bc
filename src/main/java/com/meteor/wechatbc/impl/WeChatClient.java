@@ -1,6 +1,6 @@
 package com.meteor.wechatbc.impl;
 
-import com.meteor.wechatbc.impl.model.storage.BaseRequest;
+import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -11,10 +11,16 @@ import org.slf4j.Logger;
 public class WeChatClient {
     @Getter private Logger logger;
 
-    @Getter @Setter private BaseRequest baseRequest;
+    @Getter @Setter private WeChatCoreImpl weChatCore;
 
     public WeChatClient(Logger logger){
         this.logger = logger;
+    }
+
+    public void initWeChatCore(BaseRequest baseRequest) {
+        this.weChatCore = new WeChatCoreImpl(this,
+                baseRequest);
+        this.weChatCore.getHttpAPI().init();
     }
 
     /**

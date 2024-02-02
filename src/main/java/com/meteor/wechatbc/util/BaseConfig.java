@@ -1,5 +1,7 @@
 package com.meteor.wechatbc.util;
 
+import java.util.Random;
+
 /**
  * 接口访问固定的信息
  */
@@ -19,6 +21,18 @@ public class BaseConfig {
 
     public static final String USER_AGENT = "Mozilla/5.0 (Linux; U; UOS x86_64; zh-cn) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 UOSBrowser/6.0.1.1001";
 
+    // 生成设备ID
+    public static String getDeviceId(){
+        StringBuilder builder = new StringBuilder(16);
+        builder.append("e");
+        Random random = new Random();
+        for (int i = 0; i < 15; i++) { //
+            int r = random.nextInt(10);
+            builder.append(r);
+        }
+
+        return builder.toString();
+    }
 
 
 }

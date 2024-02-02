@@ -1,4 +1,4 @@
-package com.meteor.wechatbc.login.model;
+package com.meteor.wechatbc.util.login.model;
 
 import com.meteor.wechatbc.util.HttpUrlHelper;
 import lombok.Data;

@@ -1,8 +1,10 @@
-package com.meteor.wechatbc.impl.model.storage;
+package com.meteor.wechatbc.entitiy.session;
 
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
+import lombok.ToString;
+import okhttp3.Cookie;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -13,12 +15,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 公共请求
  * 登陆后的所有接口都需要携带该类
  */
 @Data
+@ToString
 public class BaseRequest {
     @JSONField(name = "Uin")
     private String uin;
@@ -34,6 +38,10 @@ public class BaseRequest {
     private String passTicket;
     @JSONField(name = "webwx_auth_ticket")
     private String authTicket;
+
+    @JSONField(serialize = false)
+    private List<Cookie> initCookie;
+
     // 解析xml
     public BaseRequest(String xmlData){
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -70,16 +78,4 @@ public class BaseRequest {
         }
     }
 
-    @Override
-    public String toString() {
-        return "BaseRequest{" +
-                "uin='" + uin + '\'' +
-                ", sid='" + sid + '\'' +
-                ", skey='" + skey + '\'' +
-                ", deviceId='" + deviceId + '\'' +
-                ", dataTicket='" + dataTicket + '\'' +
-                ", passTicket='" + passTicket + '\'' +
-                ", authTicket='" + authTicket + '\'' +
-                '}';
-    }
 }

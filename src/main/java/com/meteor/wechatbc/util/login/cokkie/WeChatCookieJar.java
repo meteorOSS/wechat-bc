@@ -1,4 +1,4 @@
-package com.meteor.wechatbc.login.cokkie;
+package com.meteor.wechatbc.util.login.cokkie;
 
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
@@ -13,8 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * 在登陆的时候提取token存储
  */
 public class WeChatCookieJar implements CookieJar {
-
-
     private Map<HttpUrl,List<Cookie>> cookieMap;
 
     public WeChatCookieJar(){

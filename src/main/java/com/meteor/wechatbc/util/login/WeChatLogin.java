@@ -1,9 +1,9 @@
-package com.meteor.wechatbc.login;
+package com.meteor.wechatbc.util.login;
 
-import com.meteor.wechatbc.impl.model.storage.BaseRequest;
-import com.meteor.wechatbc.login.cokkie.WeChatCookieJar;
-import com.meteor.wechatbc.login.model.LoginMode;
-import com.meteor.wechatbc.login.model.QRCodeResponse;
+import com.meteor.wechatbc.entitiy.session.BaseRequest;
+import com.meteor.wechatbc.util.login.cokkie.WeChatCookieJar;
+import com.meteor.wechatbc.util.login.model.LoginMode;
+import com.meteor.wechatbc.util.login.model.QRCodeResponse;
 import com.meteor.wechatbc.util.BaseConfig;
 import com.meteor.wechatbc.util.HttpUrlHelper;
 import okhttp3.*;
@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 import static com.meteor.wechatbc.util.URL.*;
 
@@ -76,11 +75,6 @@ public class WeChatLogin {
     }
 
     /**
-     * 登陆状态记录
-     */
-
-
-    /**
      * 检查扫码状态
      */
     private QRCodeResponse checkLogin(String uuid, String tip){
@@ -98,23 +92,30 @@ public class WeChatLogin {
         }
     }
 
+    private BaseRequest baseRequest = null;
+
+    public BaseRequest getLoginInfo(){
+        return baseRequest;
+    }
+
     /**
      * 从Cookie中获取登录信息
      * @return
      */
     private BaseRequest getLoginInfo(QRCodeResponse qrCodeResponse) {
+        if(baseRequest!=null) return baseRequest;
         Request request = new Request.Builder()
                 .url(qrCodeResponse.getUrl() + "&fun=new")
                 .addHeader("version", "2.0.0")
                 .addHeader("extspam", BaseConfig.EXTSPAM)
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .build();
-        System.out.println("发送url:" + request.url().toString());
         try (Response execute = okHttpClient.newCall(request).execute()) {
-
-            List<Cookie> cookies = okHttpClient.cookieJar().loadForRequest(request.url());
-
             BaseRequest baseRequest = new BaseRequest(execute.body().string());
+            List<Cookie> cookies = okHttpClient.cookieJar().loadForRequest(request.url());
+            baseRequest.setInitCookie(cookies);
+            // 设置登录设备ID
+            baseRequest.setDeviceId(BaseConfig.getDeviceId());
             //  webwx_data_ticket ， webwx_auth_ticket需要从cookie中取得
             for (Cookie cookie : cookies) {
                 String name = cookie.name();
@@ -144,12 +145,15 @@ public class WeChatLogin {
         while (!login){
             qrCodeResponse = checkLogin(uuid, "0");
             logger.info(qrCodeResponse.getLoginMode().getMsg());
-            login = qrCodeResponse.getLoginMode()==LoginMode.LOGIN_MODE200;
+            login = qrCodeResponse.getLoginMode()== LoginMode.LOGIN_MODE200;
         }
         // 获取登陆信息
-        BaseRequest loginInfo = getLoginInfo(qrCodeResponse);
+        this.baseRequest = getLoginInfo(qrCodeResponse);
+        if(baseRequest==null) {
+            System.out.println("base request is null");
+        }
         logger.info("已取得登录信息:");
-        logger.info(loginInfo.toString());
+        logger.info(baseRequest.toString());
     }
 
 
