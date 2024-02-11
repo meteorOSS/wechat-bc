@@ -2,6 +2,7 @@ package com.meteor.wechatbc.impl;
 
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.impl.console.Console;
+import com.meteor.wechatbc.impl.synccheck.SyncCheckRunnable;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -15,6 +16,8 @@ public class WeChatClient {
     @Getter private Logger logger;
 
     @Getter @Setter private WeChatCoreImpl weChatCore;
+
+    private SyncCheckRunnable syncCheckRunnable;
 
     public WeChatClient(Logger logger){
         this.logger = logger;
@@ -31,6 +34,7 @@ public class WeChatClient {
      */
     public void start(){
         this.weChatCore.getHttpAPI().initWeChat();
+        this.syncCheckRunnable = new SyncCheckRunnable(this);
     }
 
     /**
@@ -39,6 +43,7 @@ public class WeChatClient {
      */
     public void loop(){
         getLogger().info("启动控制台...");
+        weChatCore.getHttpAPI().syncCheck();
         try {
             new Console(this).start();
         } catch (IOException e) {

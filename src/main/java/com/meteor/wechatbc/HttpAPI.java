@@ -1,6 +1,7 @@
 package com.meteor.wechatbc;
 
-import com.meteor.wechatbc.entitiy.SyncCheckSelector;
+import com.alibaba.fastjson2.JSONObject;
+import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
 
 public interface HttpAPI {
 
@@ -17,6 +18,11 @@ public interface HttpAPI {
     /**
      * 检查新消息
      */
-    SyncCheckSelector syncCheck();
+    SyncCheckResponse syncCheck();
+
+    /**
+     * 获取最新消息
+     */
+    JSONObject getMessage();
 
 }

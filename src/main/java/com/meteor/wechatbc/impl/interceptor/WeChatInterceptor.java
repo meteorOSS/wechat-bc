@@ -2,13 +2,14 @@ package com.meteor.wechatbc.impl.interceptor;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.alibaba.fastjson2.annotation.JSONBuilder;
 import com.meteor.wechatbc.impl.WeChatCoreImpl;
 import com.meteor.wechatbc.impl.model.Session;
+import com.meteor.wechatbc.util.URL;
 import okhttp3.*;
 import okio.Buffer;
 
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * 拦截器
@@ -52,6 +53,12 @@ public class WeChatInterceptor implements Interceptor {
 
         // 添加公共BaseRequest
         originalJson.put("BaseRequest", JSON.toJSONString(session.getBaseRequest()));
+
+        Request request = chain.request();
+
+        if(request.url().encodedPath().equalsIgnoreCase(URL.WEBWXSYNC)){
+            originalJson.put("rr",String.valueOf(-new Date().getTime() / 1000));
+        }
 
         RequestBody requestBody = RequestBody.create(mediaType, JSON.toJSONString(originalJson));
 

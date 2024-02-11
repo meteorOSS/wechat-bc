@@ -22,6 +22,10 @@ public class Session {
     @JSONField(serialize = false)
     List<Cookie> initCookie;
 
+    // 作为同步消息的synckey，不参与序列化
+    SyncKey checkSyncKey;
+
+    // 获取消息的SyncKey
     @JSONField(name = "SyncKey")
     SyncKey syncKey;
 }

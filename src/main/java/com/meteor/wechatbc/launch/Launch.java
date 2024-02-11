@@ -5,7 +5,9 @@ import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.launch.login.WeChatLogin;
 import org.slf4j.Logger;
 
-
+/**
+ * 在控制台启动之前进行扫码登录流程
+ */
 public interface Launch {
 
     default void infoLogo(){
