@@ -15,12 +15,16 @@ public class EventBus {
     @Data
     @AllArgsConstructor
     private static class EventListener{
-        private final Object target;
-        private final Method method;
+        private Object target;
+        private Method method;
     }
 
     private final Map<Class<?>, List<EventListener>> listeners = new ConcurrentHashMap<>();
 
+    /**
+     * 注册监听器类
+     * @param obj
+     */
     public void register(Object obj){
         Method[] methods = obj.getClass().getDeclaredMethods();
         // 获得所有被 @EventHandler 注解的方法
@@ -33,6 +37,14 @@ public class EventBus {
     }
 
     /**
+     * 卸载监听器类
+     * @param obj
+     */
+    public void unRegister(Object obj){
+        listeners.values().forEach(listeners -> listeners.removeIf(listener -> listener.getTarget() == obj));
+    }
+
+    /**
      * 调用事件
      */
     public void post(Object obj){
@@ -40,7 +52,11 @@ public class EventBus {
         if(eventListeners!=null){
             for (EventListener eventListener : eventListeners) {
                 try {
-                    eventListener.getMethod().invoke(eventListener.getTarget(), obj);
+                    Method method = eventListener.getMethod();
+                    boolean accessible = method.isAccessible();
+                    method.setAccessible(true); // 使私有方法可访问
+                    method.invoke(eventListener.getTarget(), obj);
+                    method.setAccessible(accessible);
                 } catch (IllegalAccessException e) {
                     throw new RuntimeException(e);
                 } catch (InvocationTargetException e) {
