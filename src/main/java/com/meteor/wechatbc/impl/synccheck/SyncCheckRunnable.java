@@ -73,9 +73,6 @@ public class SyncCheckRunnable {
             try {
                 SyncCheckResponse syncCheckResponse = httpAPI.syncCheck();
                 if(syncCheckResponse.getSyncCheckRetcode()== SyncCheckRetcode.NORMAL){
-                    SyncCheckSelector syncCheckSelector = syncCheckResponse.getSyncCheckSelector();
-                    if(syncCheckSelector == SyncCheckSelector.NORMAL) return;
-//                    logger.info("[新的消息] "+syncCheckSelector.getMessage());
                     handlerMessage();
                 }else {
                     logger.error(syncCheckResponse.getSyncCheckRetcode().getMessage());

@@ -9,7 +9,7 @@ import okhttp3.Cookie;
 import java.util.List;
 
 /**
- * Session会话信息，包含登录，请求信息
+ * 会话缓存，用于维持与微信链接
  */
 @Data
 public class Session {

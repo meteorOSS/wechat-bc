@@ -1,7 +1,9 @@
 package com.meteor.wechatbc;
 
+
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.launch.Launch;
+import com.meteor.wechatbc.plugin.Plugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +33,6 @@ public class Main implements Launch {
         }finally {
             weChatClient.stop();
         }
-
         return 0;
     }
 

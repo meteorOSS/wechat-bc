@@ -14,6 +14,7 @@ public class WeChatCoreImpl implements WeChatCore {
 
     private HttpAPI httpAPI;
 
+
     public WeChatCoreImpl(WeChatClient weChatClient, BaseRequest baseRequest){
         this.weChatClient = weChatClient;
         this.session = new Session();

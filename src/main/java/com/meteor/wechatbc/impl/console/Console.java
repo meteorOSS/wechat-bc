@@ -22,7 +22,7 @@ public class Console extends SimpleTerminalConsole {
 
     @Override
     protected void runCommand(String command) {
-        System.out.println("运行指令");
+
     }
 
     @Override
