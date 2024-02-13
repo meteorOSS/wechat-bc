@@ -4,7 +4,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Map;
+import java.util.Random;
 
 public class HttpUrlHelper {
 
@@ -35,6 +37,15 @@ public class HttpUrlHelper {
             }
         }
         return null;
+    }
+
+    public static String generateTimestampWithRandom() {
+        return System.currentTimeMillis() / 1000 + random(6);
+    }
+
+    public static String random(int count) {
+        RandomString gen = new RandomString(count, new Random());
+        return gen.nextString();
     }
 
     public static String encodeParams(Map<String, String> params) {

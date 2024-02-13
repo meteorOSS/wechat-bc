@@ -1,9 +1,12 @@
 package com.meteor.wechatbc.entitiy.message;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class Message {
     @JSONField(name = "MsgId")
     private Long msgId;
@@ -88,4 +91,5 @@ public class Message {
 
     @JSONField(name = "EncryFileName")
     private String encryFileName;
+
 }

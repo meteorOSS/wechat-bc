@@ -25,4 +25,13 @@ public interface HttpAPI {
      */
     JSONObject getMessage();
 
+    /**
+     * 取得联系人列表
+     */
+    JSONObject getContact();
+
+    /**
+     * 发送消息
+     */
+    JSONObject sendMessage(String toUserName,String content);
 }

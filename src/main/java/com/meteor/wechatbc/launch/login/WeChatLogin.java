@@ -22,7 +22,6 @@ import static com.meteor.wechatbc.util.URL.*;
  */
 public class WeChatLogin {
 
-
     private final OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .cookieJar(new WeChatCookieJar())
             .connectTimeout(30, TimeUnit.MINUTES)

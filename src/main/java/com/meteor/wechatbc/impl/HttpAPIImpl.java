@@ -4,9 +4,11 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONReader;
 import com.meteor.wechatbc.HttpAPI;
+import com.meteor.wechatbc.entitiy.SendMessage;
+import com.meteor.wechatbc.entitiy.contact.Contact;
+import com.meteor.wechatbc.entitiy.message.Message;
 import com.meteor.wechatbc.entitiy.session.SyncKey;
 import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
-import com.meteor.wechatbc.entitiy.User;
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.impl.cookie.WeChatCookie;
 import com.meteor.wechatbc.impl.interceptor.WeChatInterceptor;
@@ -51,6 +53,7 @@ public class HttpAPIImpl implements HttpAPI {
 
     }
 
+
     @Override
     public void initWeChat() {
         HttpUrl httpUrl = URL.BASE_URL.newBuilder()
@@ -68,7 +71,7 @@ public class HttpAPIImpl implements HttpAPI {
             session.setWxInitInfo(wxInitInfo);
             session.setCheckSyncKey(wxInitInfo.getSyncKey());
             session.setSyncKey(wxInitInfo.getSyncKey());
-            User user = wxInitInfo.getUser();
+            Contact user = wxInitInfo.getUser();
             weChatClient.getLogger().info("已初始化微信信息:");
             weChatClient.getLogger().info("用户信息:");
             weChatClient.getLogger().info(user.toString());
@@ -131,6 +134,72 @@ public class HttpAPIImpl implements HttpAPI {
             return jsonObject;
         } catch (IOException e) {
             weChatClient.getLogger().info(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public JSONObject getContact() {
+        Session session = weChatClient.getWeChatCore().getSession();
+        BaseRequest baseRequest = session.getBaseRequest();
+        HttpUrl httpUrl = URL.BASE_URL.newBuilder()
+                .encodedPath(URL.GET_CONTACT)
+                .addQueryParameter("skey",baseRequest.getSkey())
+                .addQueryParameter("pass_ticket",baseRequest.getPassTicket())
+                .addQueryParameter("rr",String.valueOf(System.currentTimeMillis()))
+                .build();
+
+        Request request = BASE_REQUEST.newBuilder().url(httpUrl)
+                        .post(RequestBody.create(mediaType,JSONObject.toJSONString(new JSONObject())))
+                                .build();
+
+        try(
+                Response response = okHttpClient.newCall(request).execute();
+        ) {
+            String body = response.body().string();
+            return JSON.parseObject(body);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Override
+    public JSONObject sendMessage(String toUserName,String content) {
+        Session session = weChatClient.getWeChatCore().getSession();
+
+        String s = HttpUrlHelper.generateTimestampWithRandom();
+
+        SendMessage sendMessage = SendMessage.builder()
+                .fromUserName(session.getWxInitInfo().getUser().getUserName())
+                .localId(s)
+                .clientMsgId(s)
+                .content(content)
+                .type(1)
+                .toUserName(toUserName)
+                .build();
+
+        BaseRequest baseRequest = session.getBaseRequest();
+
+        HttpUrl httpUrl = URL.BASE_URL.newBuilder()
+                .encodedPath(URL.SEND_MESSAGE)
+                .addQueryParameter("pass_ticket",baseRequest.getPassTicket())
+                .addQueryParameter("lang","zh_CN")
+                .build();
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("Msg",sendMessage);
+        jsonObject.put("Scene",0);
+
+        weChatClient.getLogger().debug(        jsonObject.toString());
+        Request request = BASE_REQUEST.newBuilder().url(httpUrl)
+                .post(RequestBody.create(mediaType,jsonObject.toString()))
+                .build();
+
+        try(Response response = okHttpClient.newCall(request).execute()) {
+            String body = response.body().string();
+            return JSON.parseObject(body);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

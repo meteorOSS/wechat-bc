@@ -54,6 +54,8 @@ public class WeChatInterceptor implements Interceptor {
         // 添加公共BaseRequest
         originalJson.put("BaseRequest", JSON.toJSONString(session.getBaseRequest()));
 
+
+
         Request request = chain.request();
 
         if(request.url().encodedPath().equalsIgnoreCase(URL.WEBWXSYNC)){

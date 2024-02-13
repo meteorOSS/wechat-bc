@@ -28,6 +28,8 @@ public class Main implements Launch {
 
         weChatClient.start();
 
+        weChatClient.getWeChatCore().getHttpAPI().getContact();
+
         try {
             weChatClient.loop();
         }finally {
