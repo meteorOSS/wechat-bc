@@ -13,6 +13,5 @@ public class PluginDescription {
     private String version;
     private List<String> authors;
     private String description;
-    private String mainClassPath;
-    private List<String> depend;
+    private String main;
 }

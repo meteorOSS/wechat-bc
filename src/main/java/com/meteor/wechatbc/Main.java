@@ -3,7 +3,6 @@ package com.meteor.wechatbc;
 
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.launch.Launch;
-import com.meteor.wechatbc.plugin.Plugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,15 +19,20 @@ public class Main implements Launch {
         return new Main().start();
     }
 
+    public static WeChatClient weChatClient = null;
+
     public int start(){
+
 
         Thread.currentThread().setName(MAIN_THREAD_NAME);
 
-        WeChatClient weChatClient = login(logger);
+        weChatClient = login(logger);
 
         weChatClient.start();
 
         weChatClient.getWeChatCore().getHttpAPI().getContact();
+
+        weChatClient.initPluginManager();
 
         try {
             weChatClient.loop();

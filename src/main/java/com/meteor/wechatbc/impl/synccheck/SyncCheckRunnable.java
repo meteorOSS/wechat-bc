@@ -89,8 +89,8 @@ public class SyncCheckRunnable {
             String toUser = Optional.ofNullable(weChatClient.getContactManager().getContactCache().get(message.getToUserName()))
                             .map(Contact::getNickName).orElse("未知");
 
-            logger.info("[{}] -> [{}] : {}",nickName,toUser,message.getContent());
-
+//            logger.info("[{}] -> [{}] : {}",nickName,toUser,message.getContent());
+            logger.info(nickName+">"+toUser+":"+message.getContent());
             if(message.getContent().equalsIgnoreCase("ping")){
                 JSONObject jsonObject1 = httpAPI.sendMessage(message.getFromUserName(), "你好，我是二次元");
                 logger.debug(jsonObject1.toString());

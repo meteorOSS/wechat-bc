@@ -134,7 +134,7 @@ public class WeChatLogin {
     public void login(){
         String uuid = getLoginUUID();
         String url = "https://login.weixin.qq.com/qrcode/"+uuid;
-        System.out.println("访问: "+url+" 进行登录");
+        System.out.println("访问: "+url+" 进行登录!");
         // 等待登陆完成
         this.waitLogin(uuid);
     }

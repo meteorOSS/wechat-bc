@@ -4,10 +4,10 @@ import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.impl.console.Console;
 import com.meteor.wechatbc.impl.contact.ContactManager;
 import com.meteor.wechatbc.impl.event.EventManager;
+import com.meteor.wechatbc.impl.plugin.PluginManager;
 import com.meteor.wechatbc.impl.synccheck.SyncCheckRunnable;
 import lombok.Getter;
 import lombok.Setter;
-import org.checkerframework.checker.units.qual.C;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -24,6 +24,8 @@ public class WeChatClient {
     @Getter private EventManager eventManager;
 
     @Getter private ContactManager contactManager;
+
+    @Getter private PluginManager pluginManager;
 
     public WeChatClient(Logger logger){
         this.logger = logger;
@@ -43,6 +45,10 @@ public class WeChatClient {
         this.syncCheckRunnable = new SyncCheckRunnable(this);
         this.contactManager = new ContactManager(this);
         this.eventManager = new EventManager();
+    }
+
+    public void initPluginManager(){
+        this.pluginManager = new PluginManager();
     }
 
     /**

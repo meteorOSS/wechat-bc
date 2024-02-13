@@ -28,6 +28,32 @@
             <url>https://maven.architectury.dev/</url>
         </repository>
     </repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.meteor.wechatbc.Main</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- 这个配置用于给打包的jar命名 -->
+                        <phase>package</phase> <!-- 绑定到package阶段 -->
+                        <goals>
+                            <goal>single</goal> <!-- 执行assembly插件的single目标 -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/net.kyori/event-api -->
@@ -42,6 +68,12 @@
             <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.28</version>
+        </dependency>
+
         <dependency>
             <groupId>com.github.SNWCreations</groupId>
             <artifactId>TerminalConsoleAppender</artifactId>
@@ -58,9 +90,19 @@
             <version>2.0.31</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.19.0</version>
+        </dependency>
+        <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>event-method</artifactId>
             <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>uk.org.lidalia</groupId>
+            <artifactId>sysout-over-slf4j</artifactId>
+            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

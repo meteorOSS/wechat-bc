@@ -1,6 +1,8 @@
 package com.meteor.wechatbc.plugin;
 
 
+import com.meteor.wechatbc.Main;
+import com.meteor.wechatbc.impl.WeChatClient;
 import org.slf4j.Logger;
 
 /**
@@ -20,6 +22,7 @@ public abstract class BasePlugin implements Plugin {
         return logger;
     }
 
-
-
+    public WeChatClient getWeChatClient(){
+        return Main.weChatClient;
+    }
 }
