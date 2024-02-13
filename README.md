@@ -82,6 +82,7 @@ public class TestPlugin extends BasePlugin implements Listener {
 ![image](https://github.com/meteorOSS/WeChatBc/assets/61687266/b812954f-a8bf-4a71-8203-901f5abcdef1)
 
 **该项目目前处于初步阶段，后续的迭代会更加完善**
+
 **任何问题欢迎提交issue或加入Q群653440235反馈**
 
 
