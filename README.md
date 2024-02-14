@@ -6,12 +6,7 @@
 
 ### 安装
 
-clone本项目，使用
-
-> mvn clean compile assembly:single
-
-得到编译后的jar包，与bat脚本在同一目录
-编辑bat脚本
+在发布页得到最新的jar文件，新建bat脚本在同一级目录，内容如下
 
 ```
 @echo off
