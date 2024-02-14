@@ -6,7 +6,6 @@ permissions:
 
 on:
   push:
-    branches: [master]
     tags:
       - 'release-*'
 
