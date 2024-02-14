@@ -1,6 +1,7 @@
 package com.meteor.wechatbc.entitiy.session;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 import lombok.ToString;
@@ -13,8 +14,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Data
 @ToString
-public class BaseRequest {
+public class BaseRequest{
     @JSONField(name = "Uin")
     private String uin;
     @JSONField(name = "Sid")
@@ -39,7 +39,7 @@ public class BaseRequest {
     @JSONField(name = "webwx_auth_ticket")
     private String authTicket;
 
-    @JSONField(serialize = false)
+    @JSONField
     private List<Cookie> initCookie;
 
     // 解析xml
@@ -75,6 +75,39 @@ public class BaseRequest {
             throw new RuntimeException(e);
         } catch (SAXException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static BaseRequest createFromFile(File file) {
+        try (FileReader reader = new FileReader(file);
+             BufferedReader br = new BufferedReader(reader)) {
+            String jsonString = br.readLine();
+            return JSON.parseObject(jsonString, BaseRequest.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static BaseRequest create(File file){
+        try (FileInputStream fileIn = new FileInputStream(file);
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+             return (BaseRequest) in.readObject();
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        } catch (ClassNotFoundException c) {
+            c.printStackTrace();
+            return null;
+        }
+    }
+
+    public void saveToJson(File file) {
+        String jsonString = JSON.toJSONString(this);
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(jsonString);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

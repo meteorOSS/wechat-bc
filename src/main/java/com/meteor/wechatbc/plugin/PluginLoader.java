@@ -1,8 +1,8 @@
 package com.meteor.wechatbc.plugin;
 
 import lombok.Getter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -15,7 +15,7 @@ public class PluginLoader {
 
     private final File file;
 
-    public static Logger logger = LoggerFactory.getLogger("plugin-loader");
+    public static Logger logger = LogManager.getLogger("plugin-loader");
 
     @Getter private PluginDescription pluginDescription;
 

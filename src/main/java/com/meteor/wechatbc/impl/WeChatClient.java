@@ -7,14 +7,17 @@ import com.meteor.wechatbc.impl.event.EventManager;
 import com.meteor.wechatbc.impl.plugin.PluginManager;
 import com.meteor.wechatbc.impl.synccheck.SyncCheckRunnable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
  * 客户端
  */
+@NoArgsConstructor
 public class WeChatClient {
     @Getter private Logger logger;
 
@@ -31,10 +34,15 @@ public class WeChatClient {
         this.logger = logger;
     }
 
-    public void initWeChatCore(BaseRequest baseRequest) {
-        this.weChatCore = new WeChatCoreImpl(this,
-                baseRequest);
-        this.weChatCore.getHttpAPI().init();
+    public boolean initWeChatCore(BaseRequest baseRequest) {
+        try {
+            this.weChatCore = new WeChatCoreImpl(this,
+                    baseRequest);
+            this.weChatCore.getHttpAPI().init();
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     /**
@@ -67,7 +75,9 @@ public class WeChatClient {
     }
 
     public void stop(){
-
+        // 保存会话信息
+        getWeChatCore().getSession().getBaseRequest().saveToJson(
+                new File(System.getProperty("user.dir"),"hotlogin"));
     }
 
 }

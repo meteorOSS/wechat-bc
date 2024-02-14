@@ -5,7 +5,7 @@ import com.meteor.wechatbc.WeChatCore;
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.impl.model.Session;
 import lombok.Getter;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.Logger;
 
 public class WeChatCoreImpl implements WeChatCore {
 

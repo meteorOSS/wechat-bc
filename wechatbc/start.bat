@@ -1,3 +1,3 @@
 @echo off
-java -jar WeChatBc-1.0-SNAPSHOT-jar-with-dependencies.jar
+java -Dlog4j2.debug=true -jar WeChatBc-1.0-SNAPSHOT.jar
 pause

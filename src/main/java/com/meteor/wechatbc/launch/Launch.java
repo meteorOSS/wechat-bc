@@ -3,7 +3,11 @@ package com.meteor.wechatbc.launch;
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.launch.login.WeChatLogin;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
+
+import java.io.File;
+import java.io.InputStream;
 
 /**
  * 在控制台启动之前进行扫码登录流程
@@ -46,4 +50,6 @@ public interface Launch {
 
         return weChatClient;
     }
+
+
 }

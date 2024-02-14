@@ -7,7 +7,7 @@ import com.meteor.wechatbc.launch.login.model.QRCodeResponse;
 import com.meteor.wechatbc.util.BaseConfig;
 import com.meteor.wechatbc.util.HttpUrlHelper;
 import okhttp3.*;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.HashMap;

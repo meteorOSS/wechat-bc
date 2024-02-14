@@ -1,6 +1,6 @@
 package com.meteor.wechatbc;
 
-import org.slf4j.Logger;
+import org.apache.logging.log4j.Logger;
 
 public interface WeChatCore {
 

@@ -19,8 +19,8 @@ import com.meteor.wechatbc.impl.event.sub.MessageEvent;
 import com.meteor.wechatbc.impl.event.sub.OwnerMessageEvent;
 import com.meteor.wechatbc.impl.event.sub.ReceiveMessageEvent;
 import com.meteor.wechatbc.impl.model.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
@@ -34,7 +34,7 @@ public class SyncCheckRunnable {
 
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-    private final Logger logger = LoggerFactory.getLogger("SYNC-CHECK");
+    private final Logger logger = LogManager.getLogger("SYNC-CHECK");
 
     public final WeChatClient weChatClient;
 
@@ -82,6 +82,7 @@ public class SyncCheckRunnable {
             messageCache.put(String.valueOf(message.getMsgId()),message);
 
             logger.debug(message.toString());
+
             String nickName = Optional.ofNullable(weChatClient.getContactManager().getContactCache().get(message.getFromUserName()))
                             .map(Contact::getNickName)
                                     .orElse("未知");
