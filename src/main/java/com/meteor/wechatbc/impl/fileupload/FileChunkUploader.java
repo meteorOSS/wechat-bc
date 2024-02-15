@@ -49,6 +49,9 @@ public class FileChunkUploader {
 
     private final long CHUNK_SIZE = 524288; // 分块大小 : 5m
 
+    /**
+     * 文件类型
+     */
     private static class FileTypeDetector {
         private static final String PIC = "pic";
         private static final String VIDEO = "video";
