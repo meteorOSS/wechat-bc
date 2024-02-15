@@ -3,7 +3,7 @@ package com.meteor.wechatbc.util;
 import okhttp3.HttpUrl;
 
 /**
- * 微信接口
+ * 微信相关接口
  */
 public class URL {
 
@@ -24,4 +24,9 @@ public class URL {
     public final static String NEWLOGINPAGE = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage";
     public final static String LOGIN = "https://login.wx.qq.com/cgi-bin/mmwebwx-bin/login";
 
+    public final static String GET_MSG_IMG = "/cgi-bin/mmwebwx-bin/webwxgetmsgimg";
+
+    public final static String UPLOAD_FILE = "/cgi-bin/mmwebwx-bin/webwxuploadmedia";
+
+    public final static String SEND_IMAGE = "/cgi-bin/mmwebwx-bin/webwxsendmsgimg";
 }

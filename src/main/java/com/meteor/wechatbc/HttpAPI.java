@@ -3,6 +3,8 @@ package com.meteor.wechatbc;
 import com.alibaba.fastjson2.JSONObject;
 import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
 
+import java.io.File;
+
 public interface HttpAPI {
 
     /**
@@ -34,4 +36,16 @@ public interface HttpAPI {
      * 发送消息
      */
     JSONObject sendMessage(String toUserName,String content);
+
+    /**
+     * 获得消息图片
+     */
+    byte[] getMsgImage(String msgId);
+
+    /**
+     * 发送图片
+     *
+     * @return
+     */
+    boolean sendImage(String toUserName, File file);
 }

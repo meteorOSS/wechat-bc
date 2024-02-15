@@ -9,7 +9,9 @@ import okhttp3.*;
 import okio.Buffer;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 拦截器
@@ -36,9 +38,17 @@ public class WeChatInterceptor implements Interceptor {
         }
     }
 
+    // 不进行拦截操作的url名单
+    private static List<String> BLACK_URL
+            = Arrays.asList(URL.UPLOAD_FILE);
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
+
+        // 如果在黑名单里不进行任何操作
+        if(BLACK_URL.contains(originalRequest.url().encodedPath())) return chain.proceed(chain.request());
+
 
         // 仅拦截post请求
         if(!originalRequest.method().equalsIgnoreCase("POST")) return chain.proceed(chain.request());
@@ -47,6 +57,7 @@ public class WeChatInterceptor implements Interceptor {
         RequestBody originalBody = originalRequest.body();
 
         MediaType mediaType = originalBody.contentType();
+
 
         // 请求体转换为JSON对象
         JSONObject originalJson = JSON.parseObject(bodyToString(originalBody), JSONObject.class);
@@ -57,6 +68,8 @@ public class WeChatInterceptor implements Interceptor {
 
 
         Request request = chain.request();
+
+
 
         if(request.url().encodedPath().equalsIgnoreCase(URL.WEBWXSYNC)){
             originalJson.put("rr",String.valueOf(-new Date().getTime() / 1000));

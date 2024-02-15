@@ -1,12 +1,17 @@
 package com.meteor.wechatbc.entitiy.contact;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.meteor.wechatbc.impl.WeChatClient;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
 @Data
 public class Contact {
+
+    private WeChatClient weChatClient;
+
     @JSONField(name="Uin")
     private int uin;
 

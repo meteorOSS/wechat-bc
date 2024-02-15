@@ -1,4 +1,5 @@
-VERSION=v1.0.0
-DESCRIPTION=项目正在初步进行阶段,可能会有一些小问题
-修复: 日志未正确输出至控制台
-增加: 日志滚动,清理策略
+VERSION=v1.0.2
+DESCRIPTION=格式化消息种类
+增加: 区分文本，语音，图片，图片表情消息
+增加: 文件分块上传 FileChunkUploader 类
+增加: 图片发送

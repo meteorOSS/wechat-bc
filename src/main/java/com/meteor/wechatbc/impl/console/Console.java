@@ -3,6 +3,8 @@ package com.meteor.wechatbc.impl.console;
 import com.meteor.wechatbc.impl.WeChatClient;
 import net.minecrell.terminalconsole.SimpleTerminalConsole;
 
+import java.io.File;
+
 /**
  * 控制台
  */
@@ -22,7 +24,10 @@ public class Console extends SimpleTerminalConsole {
 
     @Override
     protected void runCommand(String command) {
-
+        if(command.startsWith("upload")){
+            String userName = command.replace("upload ", "");
+            weChatClient.getWeChatCore().getHttpAPI().sendImage(userName,new File(System.getProperty("user.dir"),"img/test.png"));
+        }
     }
 
     @Override

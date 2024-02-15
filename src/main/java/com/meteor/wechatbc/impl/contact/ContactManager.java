@@ -77,6 +77,7 @@ public class ContactManager {
         for (int i = 0; i < memberList.size(); i++) {
             JSONObject jsonObject = memberList.getJSONObject(i);
             Contact contact = JSON.toJavaObject(jsonObject, Contact.class);
+            contact.setWeChatClient(this.weChatClient);
             map.put(contact.getUserName(),contact);
         }
         return map;

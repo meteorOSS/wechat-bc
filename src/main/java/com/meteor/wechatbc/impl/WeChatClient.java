@@ -4,6 +4,7 @@ import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.impl.console.Console;
 import com.meteor.wechatbc.impl.contact.ContactManager;
 import com.meteor.wechatbc.impl.event.EventManager;
+import com.meteor.wechatbc.impl.fileupload.FileChunkUploader;
 import com.meteor.wechatbc.impl.plugin.PluginManager;
 import com.meteor.wechatbc.impl.synccheck.SyncCheckRunnable;
 import lombok.Getter;
@@ -52,7 +53,11 @@ public class WeChatClient {
         this.weChatCore.getHttpAPI().initWeChat();
         this.syncCheckRunnable = new SyncCheckRunnable(this);
         this.contactManager = new ContactManager(this);
-        this.eventManager = new EventManager();
+        this.eventManager = new EventManager(this);
+
+        // 初始化文件上传服务
+        FileChunkUploader.init(this);
+
     }
 
     public void initPluginManager(){
@@ -78,6 +83,10 @@ public class WeChatClient {
         // 保存会话信息
         getWeChatCore().getSession().getBaseRequest().saveToJson(
                 new File(System.getProperty("user.dir"),"hotlogin"));
+    }
+
+    public File getDataFolder(){
+        return new File(System.getProperty("user.dir"));
     }
 
 }

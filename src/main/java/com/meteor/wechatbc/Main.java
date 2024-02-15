@@ -40,6 +40,7 @@ public class Main implements Launch {
         weChatClient = login(logger);
 
         weChatClient.start();
+
         weChatClient.initPluginManager();
 
         try {

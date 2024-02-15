@@ -6,33 +6,43 @@ import com.alibaba.fastjson2.JSONReader;
 import com.meteor.wechatbc.HttpAPI;
 import com.meteor.wechatbc.entitiy.SendMessage;
 import com.meteor.wechatbc.entitiy.contact.Contact;
-import com.meteor.wechatbc.entitiy.message.Message;
-import com.meteor.wechatbc.entitiy.session.SyncKey;
 import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.impl.cookie.WeChatCookie;
+import com.meteor.wechatbc.impl.fileupload.FileChunkUploader;
+import com.meteor.wechatbc.impl.fileupload.model.UploadMediaRequest;
+import com.meteor.wechatbc.impl.fileupload.model.UploadResponse;
 import com.meteor.wechatbc.impl.interceptor.WeChatInterceptor;
+import com.meteor.wechatbc.impl.model.MsgType;
 import com.meteor.wechatbc.impl.model.Session;
 import com.meteor.wechatbc.impl.model.WxInitInfo;
 import com.meteor.wechatbc.util.HttpUrlHelper;
 import com.meteor.wechatbc.util.URL;
+import lombok.Getter;
 import okhttp3.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 微信接口的实现
+ */
 public class HttpAPIImpl implements HttpAPI {
 
 
     private WeChatClient weChatClient;
 
-    private OkHttpClient okHttpClient;
+    @Getter private OkHttpClient okHttpClient;
 
     private WeChatInterceptor weChatInterceptor;
 
     private final MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
 
-    private final Request BASE_REQUEST = new Request.Builder().addHeader("ContentType","application/json; charset=UTF-8").url(URL.BASE_URL).build();
+    @Getter private final Request BASE_REQUEST = new Request.Builder().addHeader("ContentType","application/json; charset=UTF-8").url(URL.BASE_URL).build();
 
     private WeChatCookie weChatCookie;
 
@@ -204,5 +214,108 @@ public class HttpAPIImpl implements HttpAPI {
         }
     }
 
+    @Override
+    public byte[] getMsgImage(String msgId) {
+        Session session = weChatClient.getWeChatCore().getSession();
+        HttpUrl httpUrl = URL.BASE_URL.newBuilder()
+                .encodedPath(URL.GET_MSG_IMG)
+                .addQueryParameter("MsgID",msgId)
+                .addQueryParameter("skey",session.getBaseRequest().getSkey())
+                .build();
+
+        Request request = BASE_REQUEST.newBuilder().url(httpUrl)
+                .get()
+                .build();
+
+        try(Response response = okHttpClient.newCall(request).execute()) {
+            return response.body().bytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void sendImage(SendMessage sendMessage){
+        Session session = weChatClient.getWeChatCore().getSession();
+
+        BaseRequest baseRequest = session.getBaseRequest();
+
+        HttpUrl httpUrl = URL.BASE_URL.newBuilder()
+                .encodedPath(URL.SEND_IMAGE)
+                .addQueryParameter("pass_ticket",baseRequest.getPassTicket())
+                .addQueryParameter("lang","zh_CN")
+                .addQueryParameter("fun","async")
+                .addQueryParameter("f","json")
+                .build();
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("Msg",sendMessage);
+        jsonObject.put("Scene",0);
+
+        weChatClient.getLogger().debug(        jsonObject.toString());
+        Request request = BASE_REQUEST.newBuilder().url(httpUrl)
+                .post(RequestBody.create(mediaType,jsonObject.toString()))
+                .build();
+
+        try(Response response = okHttpClient.newCall(request).execute()) {
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 发送图片
+     *
+     * @param toUserName
+     * @return
+     */
+    @Override
+    public boolean sendImage(String toUserName, File file) {
+
+        // 尝试上传图片
+
+        UploadMediaRequest uploadMediaRequest = UploadMediaRequest.builder()
+                .toUserName(toUserName).build();
+
+        UploadResponse uploadResponse = FileChunkUploader.INSTANCE.upload(file, uploadMediaRequest);
+
+        Session session = weChatClient.getWeChatCore().getSession();
+
+        // 如果传输成功
+        if(uploadResponse.isFull()){
+            String s = HttpUrlHelper.generateTimestampWithRandom();
+            SendMessage sendMessage = SendMessage.builder()
+                    .fromUserName(session.getWxInitInfo().getUser().getUserName())
+                    .localId(s)
+                    .clientMsgId(s)
+                    .content("")
+                    .type(MsgType.ImageMsg.getIdx())
+                    .toUserName(toUserName)
+                    .mediaId(uploadResponse.getMediaId())
+                    .build();
+            sendImage(sendMessage);
+        }
+
+        return false;
+
+
+    }
+
+    public void saveImage(BufferedImage bufferedImage,File file) {
+        try {
+            ImageIO.write(bufferedImage, "PNG", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public BufferedImage convertHexToBufferedImage(byte[] bytes) {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes)) {
+            return ImageIO.read(bis);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

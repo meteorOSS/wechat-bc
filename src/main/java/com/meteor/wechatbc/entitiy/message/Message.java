@@ -1,9 +1,11 @@
 package com.meteor.wechatbc.entitiy.message;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.meteor.wechatbc.impl.model.MsgType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
+import org.jetbrains.annotations.TestOnly;
 
 @Data
 @ToString
@@ -92,4 +94,20 @@ public class Message {
     @JSONField(name = "EncryFileName")
     private String encryFileName;
 
+    public static final String GET_AT_USER_REG = "@([^:])+:<br/>";
+//
+    /**
+     * 格式化文本
+     * @return
+     */
+    public String getContent() {
+        // 群聊消息转换为纯文本
+        String s = content.replaceAll(GET_AT_USER_REG, "");
+        return s;
+    }
+
+    // 消息类型
+    public MsgType getMsgType(){
+        return MsgType.fromIdx(msgType);
+    }
 }

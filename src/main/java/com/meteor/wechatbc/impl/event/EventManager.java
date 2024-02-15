@@ -2,7 +2,9 @@ package com.meteor.wechatbc.impl.event;
 
 import com.meteor.wechatbc.event.Event;
 import com.meteor.wechatbc.event.EventBus;
+import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.plugin.Plugin;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +16,15 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class EventManager {
 
+    @Getter private WeChatClient weChatClient;
+
     private final EventBus eventBus;
 
     private final Map<Plugin, List<Listener>> pluginListeners = new ConcurrentHashMap<>();
 
-    public EventManager(){
+    public EventManager(WeChatClient weChatClient){
         this.eventBus = new EventBus();
+        this.weChatClient = weChatClient;
     }
 
     /**
@@ -53,6 +58,7 @@ public class EventManager {
      * 呼叫事件
      */
     public void callEvent(Event event){
+        event.setEventManager(this);
         eventBus.post(event);
     }
 }
