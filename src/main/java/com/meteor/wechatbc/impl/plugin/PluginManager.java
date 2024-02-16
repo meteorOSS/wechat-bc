@@ -1,5 +1,6 @@
 package com.meteor.wechatbc.impl.plugin;
 
+import com.meteor.wechatbc.Main;
 import com.meteor.wechatbc.plugin.BasePlugin;
 import com.meteor.wechatbc.plugin.PluginClassLoader;
 import com.meteor.wechatbc.plugin.PluginDescription;
@@ -49,10 +50,11 @@ public class PluginManager {
         URL[] urls = new URL[0];
         try {
             urls = new URL[]{ file.toURI().toURL() };
-            PluginClassLoader pluginClassLoader = new PluginClassLoader(urls, this.getClass().getClassLoader());
+            PluginClassLoader pluginClassLoader = new PluginClassLoader(urls, Main.class.getClassLoader());
 
             // 加载插件主类
             Class<?> mainClass = Class.forName(pluginDescription.getMain(), true, pluginClassLoader);
+
             BasePlugin plugin = (BasePlugin) mainClass.getDeclaredConstructor().newInstance();
 
             if (!BasePlugin.class.isAssignableFrom(mainClass)) {

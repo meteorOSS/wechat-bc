@@ -3,9 +3,9 @@ package com.meteor.wechatbc;
 
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.launch.Launch;
+import com.meteor.wechatbc.plugin.PluginClassLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.Configurator;
 
 import java.net.URL;
 
@@ -16,8 +16,7 @@ public class Main implements Launch {
     private Logger logger = LogManager.getLogger(MAIN_THREAD_NAME);
 
     public static void main(String[] args) {
-
-        URL log4Jresource = Main.class.getResource("/log4j2.xml");
+        Thread.currentThread().setContextClassLoader(new PluginClassLoader(new URL[0], Main.class.getClassLoader()));
         System.exit(main0());
     }
 

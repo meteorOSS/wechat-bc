@@ -14,10 +14,12 @@ public class EventBus {
 
     @Data
     @AllArgsConstructor
-    private static class EventListener{
+    public static class EventListener{
         private Object target;
         private Method method;
+        private ClassLoader classLoader;
     }
+
 
     private final Map<Class<?>, List<EventListener>> listeners = new ConcurrentHashMap<>();
 
@@ -25,13 +27,13 @@ public class EventBus {
      * 注册监听器类
      * @param obj
      */
-    public void register(Object obj){
+    public void register(Object obj) {
         Method[] methods = obj.getClass().getDeclaredMethods();
-        // 获得所有被 @EventHandler 注解的方法
+        ClassLoader classLoader = obj.getClass().getClassLoader(); // 获取类加载器
         for (Method method : methods) {
             if(method.isAnnotationPresent(EventHandler.class) && method.getParameterCount() == 1){
                 Class<?> eventType = method.getParameterTypes()[0];
-                listeners.computeIfAbsent(eventType, k -> new ArrayList<>()).add(new EventListener(obj, method));
+                listeners.computeIfAbsent(eventType, k -> new ArrayList<>()).add(new EventListener(obj, method, classLoader));
             }
         }
     }
@@ -47,21 +49,24 @@ public class EventBus {
     /**
      * 调用事件
      */
-    public void post(Object obj){
-        List<EventListener> eventListeners = listeners.get(obj.getClass());
-        if(eventListeners!=null){
-            for (EventListener eventListener : eventListeners) {
-                try {
+    public void post(Object event) {
+        List<EventListener> eventListeners = listeners.get(event.getClass());
+        if(eventListeners != null) {
+            ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
+            try {
+                for (EventListener eventListener : eventListeners) {
+                    ClassLoader listenerClassLoader = eventListener.getClassLoader();
+                    Thread.currentThread().setContextClassLoader(listenerClassLoader); // 切换类加载器
                     Method method = eventListener.getMethod();
                     boolean accessible = method.isAccessible();
                     method.setAccessible(true); // 使私有方法可访问
-                    method.invoke(eventListener.getTarget(), obj);
+                    method.invoke(eventListener.getTarget(), event);
                     method.setAccessible(accessible);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
                 }
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException(e);
+            } finally {
+                Thread.currentThread().setContextClassLoader(originalClassLoader); // 恢复原类加载器
             }
         }
     }

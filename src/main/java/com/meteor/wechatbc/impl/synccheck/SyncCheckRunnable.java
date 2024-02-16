@@ -146,6 +146,7 @@ public class SyncCheckRunnable {
                 }
             }catch (Exception e){
                 logger.info(e.getMessage());
+                e.printStackTrace();
                 logger.info("在尝试异步获取消息时遇到了一个错误");
             }
             this.query();

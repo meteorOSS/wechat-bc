@@ -1,5 +1,3 @@
-VERSION=v1.0.2
-DESCRIPTION=格式化消息种类
-增加: 区分文本，语音，图片，图片表情消息
-增加: 文件分块上传 FileChunkUploader 类
-增加: 图片发送
+VERSION=v1.0.3
+DESCRIPTION=修复一些bug
+修复: 调用事件时切换上下文类加载器，以保证插件类资源对wechatbc可见
