@@ -1,3 +1,5 @@
-VERSION=v1.0.3
-DESCRIPTION=修复一些bug
-修复: 调用事件时切换上下文类加载器，以保证插件类资源对wechatbc可见
+VERSION=v1.0.4
+DESCRIPTION=如下:
+https://github.com/meteorOSS/WeChatBc
+fix: 视频文件上传时无法获取mime类型
+feath: 视频消息,发送接口
