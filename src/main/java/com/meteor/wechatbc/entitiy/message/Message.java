@@ -108,6 +108,6 @@ public class Message {
 
     // 消息类型
     public MsgType getMsgType(){
-        return MsgType.fromIdx(msgType);
+        return MsgType.fromIdx(String.valueOf(msgType));
     }
 }

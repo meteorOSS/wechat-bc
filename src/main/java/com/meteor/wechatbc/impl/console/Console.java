@@ -26,7 +26,7 @@ public class Console extends SimpleTerminalConsole {
     protected void runCommand(String command) {
         if(command.startsWith("upload")){
             String userName = command.replace("upload ", "");
-            weChatClient.getWeChatCore().getHttpAPI().sendImage(userName,new File(System.getProperty("user.dir"),"img/test.png"));
+            weChatClient.getWeChatCore().getHttpAPI().sendVideo(userName,new File(System.getProperty("user.dir"),"video/test.mp4"));
         }
     }
 

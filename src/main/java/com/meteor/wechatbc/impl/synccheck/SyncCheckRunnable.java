@@ -16,9 +16,7 @@ import com.meteor.wechatbc.impl.event.EventManager;
 import com.meteor.wechatbc.impl.event.sub.MessageEvent;
 import com.meteor.wechatbc.impl.event.sub.OwnerMessageEvent;
 import com.meteor.wechatbc.impl.event.sub.ReceiveMessageEvent;
-import com.meteor.wechatbc.impl.model.MsgType;
 import com.meteor.wechatbc.impl.model.Session;
-import com.meteor.wechatbc.impl.model.message.ImageMessage;
 import com.meteor.wechatbc.impl.synccheck.message.MessageProcessor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -87,12 +85,6 @@ public class SyncCheckRunnable {
 
             messageCache.put(String.valueOf(message.getMsgId()),message);
 
-            if(message.getMsgType()== MsgType.ImageMsg){
-                boolean isImage = message instanceof ImageMessage;
-                logger.debug("[isImage] {}",isImage);
-                logger.debug("contact "+message.getContent());
-            }
-
             logger.debug("[msg type] {}",message.getMsgType());
 
             String nickName = Optional.ofNullable(weChatClient.getContactManager().getContactCache().get(message.getFromUserName()))
@@ -145,7 +137,6 @@ public class SyncCheckRunnable {
                     weChatClient.stop();
                 }
             }catch (Exception e){
-                logger.info(e.getMessage());
                 e.printStackTrace();
                 logger.info("在尝试异步获取消息时遇到了一个错误");
             }

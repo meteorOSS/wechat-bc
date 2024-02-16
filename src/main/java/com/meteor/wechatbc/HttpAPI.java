@@ -48,4 +48,18 @@ public interface HttpAPI {
      * @return
      */
     boolean sendImage(String toUserName, File file);
+
+    /**
+     * 发送视频
+     *
+     * @return
+     */
+    boolean sendVideo(String toUserName, File file);
+
+    /**
+     * 获取用户头像
+     *
+     * @return
+     */
+    File getIcon(String userName);
 }

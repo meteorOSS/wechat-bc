@@ -47,6 +47,15 @@ public class WeChatClient {
     }
 
     /**
+     * 一些必要的目录
+     */
+    public void mkDirs(){
+        File dataFolder = getDataFolder();
+        File iconFolder = new File(dataFolder,"img/icon");
+        if(!iconFolder.exists()) iconFolder.mkdirs();
+    }
+
+    /**
      * 启动
      */
     public void start(){
@@ -57,6 +66,8 @@ public class WeChatClient {
 
         // 初始化文件上传服务
         FileChunkUploader.init(this);
+
+        this.mkDirs();
 
     }
 

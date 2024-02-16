@@ -32,14 +32,14 @@ public class BaseRequest{
     private String skey;
     @JSONField(name = "DeviceID")
     private String deviceId;
-    @JSONField(name = "webwx_data_ticket")
+    @JSONField(serialize = false)
     private String dataTicket;
-    @JSONField(name = "pass_ticket")
+    @JSONField(serialize = false)
     private String passTicket;
-    @JSONField(name = "webwx_auth_ticket")
+    @JSONField(serialize = false)
     private String authTicket;
 
-    @JSONField
+    @JSONField(serialize = false)
     private List<Cookie> initCookie;
 
     // 解析xml

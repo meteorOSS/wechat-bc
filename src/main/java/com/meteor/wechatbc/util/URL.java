@@ -29,4 +29,8 @@ public class URL {
     public final static String UPLOAD_FILE = "/cgi-bin/mmwebwx-bin/webwxuploadmedia";
 
     public final static String SEND_IMAGE = "/cgi-bin/mmwebwx-bin/webwxsendmsgimg";
+
+    public final static String SEND_VIDEO = "/cgi-bin/mmwebwx-bin/webwxsendvideomsg";
+
+    public final static String GET_ICON = "/cgi-bin/mmwebwx-bin/webwxgeticon";
 }

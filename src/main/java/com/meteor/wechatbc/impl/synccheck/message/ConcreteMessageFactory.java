@@ -8,6 +8,7 @@ import com.meteor.wechatbc.impl.model.MsgType;
 import com.meteor.wechatbc.impl.model.message.ImageEmoteMessage;
 import com.meteor.wechatbc.impl.model.message.ImageMessage;
 import com.meteor.wechatbc.impl.model.message.TextMessage;
+import com.meteor.wechatbc.impl.model.message.VideoMessage;
 
 import java.security.cert.CertificateFactory;
 
@@ -36,6 +37,8 @@ public class ConcreteMessageFactory implements MessageFactory {
             return imageMessage;
         }else if(msgType == MsgType.ImgEmoteMsg){
             return JSON.toJavaObject(messageJson, ImageEmoteMessage.class);
+        }else if(msgType==MsgType.VideoMsg){
+            return JSON.toJavaObject(messageJson, VideoMessage.class);
         }
         return message;
     }

@@ -42,7 +42,7 @@ public class HttpAPIImpl implements HttpAPI {
 
     private final MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
 
-    @Getter private final Request BASE_REQUEST = new Request.Builder().addHeader("ContentType","application/json; charset=UTF-8").url(URL.BASE_URL).build();
+    @Getter private final Request BASE_REQUEST = new Request.Builder().addHeader("Content-Type","application/json; charset=UTF-8").url(URL.BASE_URL).build();
 
     private WeChatCookie weChatCookie;
 
@@ -185,7 +185,7 @@ public class HttpAPIImpl implements HttpAPI {
                 .localId(s)
                 .clientMsgId(s)
                 .content(content)
-                .type(1)
+                .type(MsgType.TextMsg.getIdx())
                 .toUserName(toUserName)
                 .build();
 
@@ -193,7 +193,7 @@ public class HttpAPIImpl implements HttpAPI {
 
         HttpUrl httpUrl = URL.BASE_URL.newBuilder()
                 .encodedPath(URL.SEND_MESSAGE)
-                .addQueryParameter("pass_ticket",baseRequest.getPassTicket())
+                .addQueryParameter("pass_ticket","pass_ticket")
                 .addQueryParameter("lang","zh_CN")
                 .build();
 
@@ -201,7 +201,6 @@ public class HttpAPIImpl implements HttpAPI {
         jsonObject.put("Msg",sendMessage);
         jsonObject.put("Scene",0);
 
-        weChatClient.getLogger().debug(        jsonObject.toString());
         Request request = BASE_REQUEST.newBuilder().url(httpUrl)
                 .post(RequestBody.create(mediaType,jsonObject.toString()))
                 .build();
@@ -229,6 +228,22 @@ public class HttpAPIImpl implements HttpAPI {
 
         try(Response response = okHttpClient.newCall(request).execute()) {
             return response.body().bytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void sendVideo(SendMessage sendMessage){
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("Msg",sendMessage);
+        jsonObject.put("Scene",0);
+
+        Request request = BASE_REQUEST.newBuilder().url("https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsendvideomsg?f=json&fun=async&lang=zh_CN&pass_ticket=pass_ticket/")
+                .post(RequestBody.create(mediaType,jsonObject.toString()))
+                .build();
+
+        try(Response response = okHttpClient.newCall(request).execute()) {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -299,6 +314,74 @@ public class HttpAPIImpl implements HttpAPI {
         return false;
 
 
+    }
+
+    @Override
+    public boolean sendVideo(String toUserName, File file) {
+
+        UploadMediaRequest uploadMediaRequest = UploadMediaRequest.builder()
+                .toUserName(toUserName).build();
+
+        UploadResponse uploadResponse = FileChunkUploader.INSTANCE.upload(file, uploadMediaRequest);
+
+        Session session = weChatClient.getWeChatCore().getSession();
+
+        String f = "@crypt_1e2fd24e_e76e1e76062acc2f5b8ee0462d0843e875206d9987af998ae01a93c49d12613135a8d171f44481d5a912e3871ce3ecbacd73ebc6cd331c9b8b09b226dbc63bca3a908be0515f35b9a1799e7d13386e0333d03\n" +
+                "c7704e87d22ffb62b76d5c0ec99b5d2b4c2e3e9d4845c19fd643cf275e00a08abdb9aff99507599eca6f954402661c77a443cc9087335a2d15f5c1247ea2d8159dfa91b704289b2b08a240ded59a804b1cc3a0ddfeffdcbd027e384cab96cd84b24917d0163e7ef55420341e6a5013e8c97a8\n" +
+                "f1323c16e9c353b52b5d62646cb0dad5450db6117c1fae28105a82d21b256dfeb9498e87c832e49bc8a0703d684ed5323205bea56db78967c11f7f3da418f66fe732cc18807c458f2043907e0fd8e00e289b4f25cbd7264425a391";
+
+        // 如果传输成功
+        if(uploadResponse.isFull()){
+            String s = HttpUrlHelper.generateTimestampWithRandom();
+
+            SendMessage sendMessage = SendMessage.builder()
+                    .fromUserName(session.getWxInitInfo().getUser().getUserName())
+                    .localId(s)
+                    .clientMsgId(s)
+                    .content("")
+                    .type(MsgType.VideoMsg.getIdx())
+                    .toUserName(toUserName)
+                    .mediaId(uploadResponse.getMediaId())
+                    .build();
+
+            // 发送视频消息
+            sendVideo(sendMessage);
+        }
+
+        return false;
+    }
+
+    @Override
+    public File getIcon(String userName) {
+
+        File file = new File(weChatClient.getDataFolder(),"img/icon/"+userName+".jpg");
+        if(file.exists()) return file;
+
+        Contact contact = weChatClient.getContactManager().getContactCache().get(userName);
+        Session session = weChatClient.getWeChatCore().getSession();
+        if(contact.getHeadImgUrl()!=null){
+            HttpUrl ur = URL.BASE_URL.newBuilder().encodedPath(URL.GET_ICON)
+                    .addQueryParameter("username",userName)
+                    .addQueryParameter("skey",session.getBaseRequest().getSkey())
+                    .addQueryParameter("type","big")
+                    .addQueryParameter("chatroomid",contact.getEncryChatRoomId())
+                    .addQueryParameter("seq","0")
+                    .build();
+
+            Request request = BASE_REQUEST.newBuilder()
+                    .url(ur).get().build();
+
+            try(Response response = okHttpClient.newCall(request).execute()){
+                BufferedImage bufferedImage = convertHexToBufferedImage(response.body().bytes());
+                saveImage(bufferedImage,new File(weChatClient.getDataFolder(),"img/icon/"+userName+".jpg"));
+                return file;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        return null;
     }
 
     public void saveImage(BufferedImage bufferedImage,File file) {

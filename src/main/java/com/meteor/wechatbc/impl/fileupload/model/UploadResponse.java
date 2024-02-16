@@ -2,8 +2,10 @@ package com.meteor.wechatbc.impl.fileupload.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class UploadResponse {
     @JSONField(name = "BaseResponse")
     private BaseResponse baseResponse;

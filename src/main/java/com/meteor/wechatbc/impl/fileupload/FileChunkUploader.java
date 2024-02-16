@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.*;
 import java.net.URLConnection;
+import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -58,7 +59,7 @@ public class FileChunkUploader {
         private static final String DOC = "doc";
 
         // 支持的图片格式
-        private static final Set<String> imageType = new HashSet<>(Arrays.asList("jpg", "jpeg", "png", "gif"));
+        private static final Set<String> imageType = new HashSet<>(Arrays.asList("jpg", "jpeg", "png","gif"));
         // 视频文件扩展名
         private static final String videoType = "mp4";
 
@@ -88,16 +89,19 @@ public class FileChunkUploader {
 
         Session session = weChatClient.getWeChatCore().getSession();
 
+
         try {
 
             String filename = file.getName();
 
             // 获取文件上传类型
-            String mimeType = URLConnection.guessContentTypeFromName(file.getPath());
+            String mimeType = Files.probeContentType(file.toPath());
+
             // 计算文件md5
             String md5 = calculateFileMD5(file);
             // 文件类型
             String messageType = FileTypeDetector.getMessageType(file.getName());
+            System.out.println("文件类型： "+messageType);
 
             long fileSize = file.length();
             // 分块数量 (向上取整)
@@ -193,6 +197,7 @@ public class FileChunkUploader {
                             throw new RuntimeException("文件上传出现错误,文件名: "+filename);
                         }
                     }else {
+                        logger.info(uploadResponse.toString());
                         return uploadResponse;
                     }
                 }
