@@ -8,7 +8,8 @@ on:
   push:
     tags:
       - 'release-*'
-
+  workflow_dispatch:
+  
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
