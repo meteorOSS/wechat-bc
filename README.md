@@ -76,6 +76,17 @@ public class TestPlugin extends BasePlugin implements Listener {
 
 ![image](https://github.com/meteorOSS/WeChatBc/assets/61687266/b812954f-a8bf-4a71-8203-901f5abcdef1)
 
+### 插件资源
+
+随着wechatbc功能的迭代，为方便测试写了一些好玩的东西。
+如果你基于wechatbc开发了插件，欢迎提交PR，我会把你的插件放在这里
+
+[微信setu插件](https://github.com/meteorOSS/WeChatSetu)
+
+![image](https://github.com/meteorOSS/WeChatBc/assets/61687266/91686c0f-da30-48bd-8848-e02ba8075235)
+
+
+
 **该项目目前处于初步阶段，后续的迭代会更加完善**
 
 **任何问题欢迎提交issue或加入Q群653440235反馈**
