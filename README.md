@@ -79,6 +79,7 @@ public class TestPlugin extends BasePlugin implements Listener {
 ### 插件资源
 
 随着wechatbc功能的迭代，为方便测试写了一些好玩的东西。
+
 如果你基于wechatbc开发了插件，欢迎提交PR，我会把你的插件放在这里
 
 [微信setu插件](https://github.com/meteorOSS/WeChatSetu)
