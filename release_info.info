@@ -1,5 +1,3 @@
-VERSION=v1.0.5
-DESCRIPTION=feath: 插件在加载后将生成一个以插件名命名的目录,可通过BasePlugin.getDataFolder获取
-feath: BasePlugin移除暂时无用的hook
-feath: BasePlugin新增getResource(String file)函数用于获取jar内的文件
-fix: 删除一些调试用的日志打印
+VERSION=v1.0.6
+DESCRIPTION=feat: 指令模块
+feat: message新增getSenderUserName用于获取在群聊中的发件人
