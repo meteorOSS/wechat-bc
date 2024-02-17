@@ -26,7 +26,6 @@ public interface Launch {
                 "                                                       \n");
         System.out.println("开源仓库: https://github.com/meteorOSS/WeChatBc");
         System.out.println("如果对你有帮助的话，请帮忙点个Star哦");
-
     }
 
     /**

@@ -27,6 +27,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 /**
  * 微信接口的实现
@@ -53,16 +54,13 @@ public class HttpAPIImpl implements HttpAPI {
     public void init(){
         this.weChatCookie = new WeChatCookie(weChatClient.getWeChatCore().getSession().getBaseRequest().getInitCookie());
         this.weChatInterceptor = new WeChatInterceptor(weChatClient.getWeChatCore());
-
         this.okHttpClient = new OkHttpClient.Builder()
                 .cookieJar(this.weChatCookie) // cookie处理
                 .readTimeout(120, TimeUnit.SECONDS)
                 .connectTimeout(120,TimeUnit.SECONDS)
                 .addInterceptor(this.weChatInterceptor) // 拦截器
                 .build();
-
     }
-
 
     @Override
     public void initWeChat() {
@@ -70,6 +68,7 @@ public class HttpAPIImpl implements HttpAPI {
                 .encodedPath(URL.WXINIT)
                 .addQueryParameter("_",String.valueOf(System.currentTimeMillis()))
                 .build();
+
         Request request = BASE_REQUEST.newBuilder().url(httpUrl).post(RequestBody.create(mediaType,JSON.toJSONString(new JSONObject()))).build();
 
         try(
@@ -82,9 +81,9 @@ public class HttpAPIImpl implements HttpAPI {
             session.setCheckSyncKey(wxInitInfo.getSyncKey());
             session.setSyncKey(wxInitInfo.getSyncKey());
             Contact user = wxInitInfo.getUser();
-            weChatClient.getLogger().info("已初始化微信信息:");
-            weChatClient.getLogger().info("用户信息:");
-            weChatClient.getLogger().info(user.toString());
+            weChatClient.getLogger().debug("已初始化微信信息:");
+            weChatClient.getLogger().debug("用户信息:");
+            weChatClient.getLogger().debug(user.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -131,11 +130,9 @@ public class HttpAPIImpl implements HttpAPI {
                 .addQueryParameter("pass_ticket",baseRequest.getPassTicket())
                 .addQueryParameter("rr",String.valueOf(System.currentTimeMillis()))
                 .build();
-
         Request request = BASE_REQUEST.newBuilder().url(httpUrl)
                 .post(RequestBody.create(mediaType,JSON.toJSONString(session)))
                 .build();
-
         try(
                 Response response = okHttpClient.newCall(request).execute()
         ) {
@@ -158,11 +155,9 @@ public class HttpAPIImpl implements HttpAPI {
                 .addQueryParameter("pass_ticket",baseRequest.getPassTicket())
                 .addQueryParameter("rr",String.valueOf(System.currentTimeMillis()))
                 .build();
-
         Request request = BASE_REQUEST.newBuilder().url(httpUrl)
                         .post(RequestBody.create(mediaType,JSONObject.toJSONString(new JSONObject())))
                                 .build();
-
         try(
                 Response response = okHttpClient.newCall(request).execute();
         ) {
@@ -177,9 +172,7 @@ public class HttpAPIImpl implements HttpAPI {
     @Override
     public JSONObject sendMessage(String toUserName,String content) {
         Session session = weChatClient.getWeChatCore().getSession();
-
         String s = HttpUrlHelper.generateTimestampWithRandom();
-
         SendMessage sendMessage = SendMessage.builder()
                 .fromUserName(session.getWxInitInfo().getUser().getUserName())
                 .localId(s)
@@ -188,23 +181,18 @@ public class HttpAPIImpl implements HttpAPI {
                 .type(MsgType.TextMsg.getIdx())
                 .toUserName(toUserName)
                 .build();
-
         BaseRequest baseRequest = session.getBaseRequest();
-
         HttpUrl httpUrl = URL.BASE_URL.newBuilder()
                 .encodedPath(URL.SEND_MESSAGE)
                 .addQueryParameter("pass_ticket","pass_ticket")
                 .addQueryParameter("lang","zh_CN")
                 .build();
-
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Msg",sendMessage);
         jsonObject.put("Scene",0);
-
         Request request = BASE_REQUEST.newBuilder().url(httpUrl)
                 .post(RequestBody.create(mediaType,jsonObject.toString()))
                 .build();
-
         try(Response response = okHttpClient.newCall(request).execute()) {
             String body = response.body().string();
             return JSON.parseObject(body);
@@ -221,11 +209,9 @@ public class HttpAPIImpl implements HttpAPI {
                 .addQueryParameter("MsgID",msgId)
                 .addQueryParameter("skey",session.getBaseRequest().getSkey())
                 .build();
-
         Request request = BASE_REQUEST.newBuilder().url(httpUrl)
                 .get()
                 .build();
-
         try(Response response = okHttpClient.newCall(request).execute()) {
             return response.body().bytes();
         } catch (IOException e) {
@@ -239,10 +225,18 @@ public class HttpAPIImpl implements HttpAPI {
         jsonObject.put("Msg",sendMessage);
         jsonObject.put("Scene",0);
 
-        Request request = BASE_REQUEST.newBuilder().url("https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsendvideomsg?f=json&fun=async&lang=zh_CN&pass_ticket=pass_ticket/")
-                .post(RequestBody.create(mediaType,jsonObject.toString()))
+        HttpUrl httpUrl = URL.BASE_URL.newBuilder()
+                .encodedPath(URL.SEND_VIDEO)
+                .addQueryParameter("f","json")
+                .addQueryParameter("pass_ticket","pass_ticket")
+                .addQueryParameter("lang","zh_CN")
+                .addQueryParameter("fun","async")
                 .build();
 
+        Request request = BASE_REQUEST.newBuilder()
+                .url(httpUrl)
+                .post(RequestBody.create(mediaType,jsonObject.toString()))
+                .build();
         try(Response response = okHttpClient.newCall(request).execute()) {
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -325,10 +319,6 @@ public class HttpAPIImpl implements HttpAPI {
         UploadResponse uploadResponse = FileChunkUploader.INSTANCE.upload(file, uploadMediaRequest);
 
         Session session = weChatClient.getWeChatCore().getSession();
-
-        String f = "@crypt_1e2fd24e_e76e1e76062acc2f5b8ee0462d0843e875206d9987af998ae01a93c49d12613135a8d171f44481d5a912e3871ce3ecbacd73ebc6cd331c9b8b09b226dbc63bca3a908be0515f35b9a1799e7d13386e0333d03\n" +
-                "c7704e87d22ffb62b76d5c0ec99b5d2b4c2e3e9d4845c19fd643cf275e00a08abdb9aff99507599eca6f954402661c77a443cc9087335a2d15f5c1247ea2d8159dfa91b704289b2b08a240ded59a804b1cc3a0ddfeffdcbd027e384cab96cd84b24917d0163e7ef55420341e6a5013e8c97a8\n" +
-                "f1323c16e9c353b52b5d62646cb0dad5450db6117c1fae28105a82d21b256dfeb9498e87c832e49bc8a0703d684ed5323205bea56db78967c11f7f3da418f66fe732cc18807c458f2043907e0fd8e00e289b4f25cbd7264425a391";
 
         // 如果传输成功
         if(uploadResponse.isFull()){
