@@ -115,7 +115,6 @@ public class WeChatLogin {
             baseRequest.setInitCookie(cookies);
             // 设置登录设备ID
             baseRequest.setDeviceId(BaseConfig.getDeviceId());
-            //  webwx_data_ticket ， webwx_auth_ticket需要从cookie中取得
             for (Cookie cookie : cookies) {
                 String name = cookie.name();
                 if (name.startsWith("webwx_data_ticket")) {

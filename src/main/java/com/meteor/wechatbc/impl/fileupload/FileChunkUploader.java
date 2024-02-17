@@ -13,8 +13,10 @@ import okio.BufferedSink;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.*;
+import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.security.MessageDigest;
@@ -95,7 +97,9 @@ public class FileChunkUploader {
             String filename = file.getName();
 
             // 获取文件上传类型
-            String mimeType = Files.probeContentType(file.toPath());
+
+            MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+            String mimeType = fileTypeMap.getContentType(file);
 
             // 计算文件md5
             String md5 = calculateFileMD5(file);

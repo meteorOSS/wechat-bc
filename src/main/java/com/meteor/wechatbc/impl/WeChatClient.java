@@ -72,7 +72,7 @@ public class WeChatClient {
     }
 
     public void initPluginManager(){
-        this.pluginManager = new PluginManager();
+        this.pluginManager = new PluginManager(this);
     }
 
     /**
