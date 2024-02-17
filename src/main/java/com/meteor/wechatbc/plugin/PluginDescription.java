@@ -14,4 +14,5 @@ public class PluginDescription {
     private List<String> authors;
     private String description;
     private String main;
+    private List<String> commands;
 }

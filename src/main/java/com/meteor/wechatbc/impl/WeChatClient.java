@@ -1,6 +1,7 @@
 package com.meteor.wechatbc.impl;
 
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
+import com.meteor.wechatbc.impl.command.CommandManager;
 import com.meteor.wechatbc.impl.console.Console;
 import com.meteor.wechatbc.impl.contact.ContactManager;
 import com.meteor.wechatbc.impl.event.EventManager;
@@ -30,6 +31,8 @@ public class WeChatClient {
     @Getter private ContactManager contactManager;
 
     @Getter private PluginManager pluginManager;
+
+    @Getter private CommandManager commandManager;
 
     public WeChatClient(Logger logger){
         this.logger = logger;
@@ -63,10 +66,10 @@ public class WeChatClient {
         this.syncCheckRunnable = new SyncCheckRunnable(this);
         this.contactManager = new ContactManager(this);
         this.eventManager = new EventManager(this);
+        this.commandManager = new CommandManager();
 
         // 初始化文件上传服务
         FileChunkUploader.init(this);
-
         this.mkDirs();
 
     }

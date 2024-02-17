@@ -95,7 +95,18 @@ public class Message {
     private String encryFileName;
 
     public static final String GET_AT_USER_REG = "@([^:])+:<br/>";
-//
+
+
+    /**
+     * 如果是群聊消息，该函数返回调用者
+     */
+    public String getSenderUserName(){
+        if(getFromUserName().startsWith("@@")){
+            return content.substring(0,content.indexOf(":"));
+        }
+        return getFromUserName();
+    }
+
     /**
      * 格式化文本
      * @return

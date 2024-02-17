@@ -2,7 +2,9 @@ package com.meteor.wechatbc.impl.event;
 
 import com.meteor.wechatbc.event.Event;
 import com.meteor.wechatbc.event.EventBus;
+import com.meteor.wechatbc.impl.DefaultPlugin;
 import com.meteor.wechatbc.impl.WeChatClient;
+import com.meteor.wechatbc.impl.event.listener.ContactCommandListener;
 import com.meteor.wechatbc.plugin.Plugin;
 import lombok.Getter;
 
@@ -20,11 +22,21 @@ public class EventManager {
 
     private final EventBus eventBus;
 
+    private final DefaultPlugin defaultPlugin = new DefaultPlugin();
+
     private final Map<Plugin, List<Listener>> pluginListeners = new ConcurrentHashMap<>();
 
     public EventManager(WeChatClient weChatClient){
         this.eventBus = new EventBus();
         this.weChatClient = weChatClient;
+        this.registerDefaultListener();
+    }
+
+    /**
+     * 载入一些预定义的监听器
+     */
+    public void registerDefaultListener(){
+        registerPluginListener(defaultPlugin,new ContactCommandListener(weChatClient));
     }
 
     /**

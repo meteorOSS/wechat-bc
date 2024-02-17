@@ -1,6 +1,7 @@
 package com.meteor.wechatbc.impl.plugin;
 
 
+import com.meteor.wechatbc.command.WeChatCommand;
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.plugin.Plugin;
 import com.meteor.wechatbc.plugin.PluginDescription;
@@ -70,6 +71,15 @@ public abstract class BasePlugin implements Plugin {
      */
     public InputStream getResource(String file){
         return getClass().getClassLoader().getResourceAsStream("resources/"+file);
+    }
+
+    /**
+     * 获取指令
+     * @param command
+     * @return
+     */
+    public WeChatCommand getCommand(String command){
+        return weChatClient.getCommandManager().getWeChatCommandMap().get(command);
     }
 
 }
