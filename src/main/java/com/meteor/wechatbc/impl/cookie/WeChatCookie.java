@@ -14,7 +14,6 @@ public class WeChatCookie implements CookieJar {
     private List<Cookie> initCookie;
     private Map<HttpUrl,List<Cookie>> cookieListMap;
 
-
     public WeChatCookie(List<Cookie> initCookie){
         this.initCookie = initCookie;
         this.cookieListMap = new HashMap<>();

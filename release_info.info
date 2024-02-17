@@ -1,5 +1,5 @@
-VERSION=v1.0.4
-DESCRIPTION=如下:
-https://github.com/meteorOSS/WeChatBc
-fix: 视频文件上传时无法获取mime类型
-feath: 视频消息,发送接口
+VERSION=v1.0.5
+DESCRIPTION=feath: 插件在加载后将生成一个以插件名命名的目录,可通过BasePlugin.getDataFolder获取
+feath: BasePlugin移除暂时无用的hook
+feath: BasePlugin新增getResource(String file)函数用于获取jar内的文件
+fix: 删除一些调试用的日志打印

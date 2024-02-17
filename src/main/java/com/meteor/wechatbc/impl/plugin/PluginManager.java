@@ -2,10 +2,7 @@ package com.meteor.wechatbc.impl.plugin;
 
 import com.meteor.wechatbc.Main;
 import com.meteor.wechatbc.impl.WeChatClient;
-import com.meteor.wechatbc.plugin.BasePlugin;
-import com.meteor.wechatbc.plugin.PluginClassLoader;
-import com.meteor.wechatbc.plugin.PluginDescription;
-import com.meteor.wechatbc.plugin.PluginLoader;
+import com.meteor.wechatbc.plugin.*;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -21,6 +18,7 @@ public class PluginManager {
 
     private Map<String,BasePlugin> pluginMap = new ConcurrentHashMap<>();
 
+
     private WeChatClient weChatClient;
 
     public PluginManager(WeChatClient weChatClient){
@@ -34,7 +32,16 @@ public class PluginManager {
             this.loadPlugin(pluginFile);
         }
         PluginLoader.logger.info("载入了 {} 个插件",pluginMap.size());
+    }
 
+    /**
+     * 卸载插件
+     */
+    public void unload(BasePlugin plugin){
+        String pluginName = plugin.getPluginDescription().getName();
+        weChatClient.getEventManager().unRegisterPluginListener(plugin);
+        pluginMap.remove(plugin,pluginName);
+        PluginLoader.logger.info("已卸载 {}",pluginName);
     }
 
     /**

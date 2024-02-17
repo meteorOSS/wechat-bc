@@ -36,9 +36,9 @@ public class ImageMessage extends Message {
      * 将图片保存至磁盘
      * @param file
      */
-    public void saveImage(File file) {
+    public void saveImage(File file,String type) {
         try {
-            ImageIO.write(convertHexToBufferedImage(), "PNG", file);
+            ImageIO.write(convertHexToBufferedImage(), type, file);
         } catch (IOException e) {
             e.printStackTrace();
         }

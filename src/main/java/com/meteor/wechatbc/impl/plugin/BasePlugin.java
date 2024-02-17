@@ -1,7 +1,9 @@
-package com.meteor.wechatbc.plugin;
+package com.meteor.wechatbc.impl.plugin;
 
 
 import com.meteor.wechatbc.impl.WeChatClient;
+import com.meteor.wechatbc.plugin.Plugin;
+import com.meteor.wechatbc.plugin.PluginDescription;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,7 +34,10 @@ public abstract class BasePlugin implements Plugin {
     }
 
     public BasePlugin(){
+    }
 
+    @Override
+    public void onDisable() {
     }
 
     @Override
