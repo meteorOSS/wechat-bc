@@ -23,7 +23,9 @@
 
 ## Thanks
 
-> **Bukkit框架** 事件分发，插件管理等模式深受该项目影响
+> **[Bukkit框架](https://github.com/Bukkit/Bukkit)** 事件分发，插件管理等模式深受该项目影响
+
+> **[Jkook](https://github.com/SNWCreations/JKook)** 最初是因为该项目萌生了用java写一个微信客户端实现的想法
 
 ## ⭐使用中的任何问题欢迎提交issue或加入Q群653440235反馈
 
