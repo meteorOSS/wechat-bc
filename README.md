@@ -21,6 +21,10 @@
 
 详见 [启动WeChatBc](https://github.com/meteorOSS/WeChatBc/wiki/%E5%90%AF%E5%8A%A8WeChatBc)
 
+## Thanks
+
+> **Bukkit框架** 事件分发，插件管理等模式深受该项目影响
+
 ## ⭐使用中的任何问题欢迎提交issue或加入Q群653440235反馈
 
 
