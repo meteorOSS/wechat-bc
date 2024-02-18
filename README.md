@@ -21,8 +21,6 @@
 
 详见 [启动WeChatBc](https://github.com/meteorOSS/WeChatBc/wiki/%E5%90%AF%E5%8A%A8WeChatBc)
 
-**欢迎fork并提交pr**
-
 ## ⭐使用中的任何问题欢迎提交issue或加入Q群653440235反馈
 
 
