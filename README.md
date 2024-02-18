@@ -27,6 +27,9 @@
 
 > **[Jkook](https://github.com/SNWCreations/JKook)** 最初是因为该项目萌生了用java写一个微信客户端实现的想法
 
+> **[itchat](https://github.com/littlecodersh/itchat)** 调试微信接口时参考的项目，感谢前辈的付出
+
+
 ## ⭐使用中的任何问题欢迎提交issue或加入Q群653440235反馈
 
 
