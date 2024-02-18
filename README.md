@@ -4,6 +4,11 @@
 
 参考了Bukkit的框架设计，呼吸顺畅的编写你自己的逻辑 ⭐
 
+![image](https://github.com/meteorOSS/WeChatBc/assets/61687266/86f34b62-5f5b-4a3d-a3cc-cc151606b495)
+
+![image](https://github.com/meteorOSS/WeChatBc/assets/61687266/dc4bce02-e5c2-416f-9f90-312f1004b9b0)
+
+
 ## 支持功能
 
 - 消息回复(好友，群组),文本,视频,文件,语音发送
@@ -14,6 +19,7 @@
 ## 安装
 
 详见 [启动WeChatBc](https://github.com/meteorOSS/WeChatBc/wiki/%E5%90%AF%E5%8A%A8WeChatBc)
+
 
 
 
