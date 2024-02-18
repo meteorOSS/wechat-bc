@@ -1,3 +1,2 @@
-VERSION=v1.0.6
-DESCRIPTION=feat: 指令模块
-feat: message新增getSenderUserName用于获取在群聊中的发件人
+VERSION=v1.0.7
+DESCRIPTION=增加一处空指针判断，修复当plugin.yml未定义指令时报错

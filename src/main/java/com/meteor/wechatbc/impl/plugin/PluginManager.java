@@ -72,12 +72,13 @@ public class PluginManager {
                 throw new IllegalArgumentException("加载插件时发生了一个错误,主类必须继承自 BasePlugin " + pluginDescription.getMain());
             }
 
-            // 解析指令并创建实例
-            pluginDescription.getCommands().forEach(mainCommand->{
-                WeChatCommand weChatCommand = new WeChatCommand(mainCommand);
-                weChatClient.getCommandManager().registerCommand(weChatCommand);
-            });
-
+            if(pluginDescription.getCommands()!=null){
+                // 解析指令并创建实例
+                pluginDescription.getCommands().forEach(mainCommand->{
+                    WeChatCommand weChatCommand = new WeChatCommand(mainCommand);
+                    weChatClient.getCommandManager().registerCommand(weChatCommand);
+                });
+            }
             pluginMap.put(pluginDescription.getName(),plugin);
             // 初始化插件
             plugin.init(pluginDescription,weChatClient);
