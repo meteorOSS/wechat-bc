@@ -1,4 +1,4 @@
-package com.meteor.wechatbc;
+package com.meteor.wechatbc.impl;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;

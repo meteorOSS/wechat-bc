@@ -7,7 +7,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-import com.meteor.wechatbc.HttpAPI;
+import com.meteor.wechatbc.impl.HttpAPI;
 import com.meteor.wechatbc.entitiy.contact.Contact;
 import com.meteor.wechatbc.impl.WeChatClient;
 import lombok.Getter;

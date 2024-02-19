@@ -1,10 +1,9 @@
 package com.meteor.wechatbc.entitiy.contact;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.meteor.wechatbc.HttpAPI;
+import com.meteor.wechatbc.impl.HttpAPI;
 import com.meteor.wechatbc.impl.WeChatClient;
 import lombok.Data;
-import lombok.Getter;
 import lombok.ToString;
 
 import java.io.File;

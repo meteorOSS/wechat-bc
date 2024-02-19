@@ -1,6 +1,6 @@
 package com.meteor.wechatbc.command.sender;
 
-import com.meteor.wechatbc.HttpAPI;
+import com.meteor.wechatbc.impl.HttpAPI;
 import com.meteor.wechatbc.Main;
 import com.meteor.wechatbc.entitiy.contact.Contact;
 import com.meteor.wechatbc.impl.WeChatClient;

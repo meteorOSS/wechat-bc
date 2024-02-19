@@ -1,6 +1,5 @@
 package com.meteor.wechatbc.impl;
 
-import com.meteor.wechatbc.HttpAPI;
 import com.meteor.wechatbc.WeChatCore;
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.impl.model.Session;

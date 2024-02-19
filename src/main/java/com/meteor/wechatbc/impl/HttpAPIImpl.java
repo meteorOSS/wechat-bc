@@ -3,7 +3,6 @@ package com.meteor.wechatbc.impl;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONReader;
-import com.meteor.wechatbc.HttpAPI;
 import com.meteor.wechatbc.entitiy.SendMessage;
 import com.meteor.wechatbc.entitiy.contact.Contact;
 import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
@@ -27,7 +26,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 /**
  * 微信接口的实现
