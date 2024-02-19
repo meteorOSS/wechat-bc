@@ -94,9 +94,6 @@ public class WeChatClient {
     }
 
     public void stop(){
-        // 保存会话信息
-        getWeChatCore().getSession().getBaseRequest().saveToJson(
-                new File(System.getProperty("user.dir"),"hotlogin"));
     }
 
     public File getDataFolder(){
