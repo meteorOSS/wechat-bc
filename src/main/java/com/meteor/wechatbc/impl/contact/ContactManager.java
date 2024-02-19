@@ -46,9 +46,6 @@ public class ContactManager {
         this.weChatClient = weChatClient;
         this.contactMap = ref();
         this.weChatClient.getLogger().info("联系人列表数量: "+contactMap.size());
-        this.contactMap.forEach((k,v)->{
-            this.weChatClient.getLogger().debug(k+":"+v.getNickName());
-        });
     }
 
 

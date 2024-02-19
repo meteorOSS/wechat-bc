@@ -1,16 +1,20 @@
 package com.meteor.wechatbc.entitiy.contact;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.meteor.wechatbc.HttpAPI;
 import com.meteor.wechatbc.impl.WeChatClient;
 import lombok.Data;
 import lombok.Getter;
+import lombok.ToString;
 
+import java.io.File;
 import java.util.List;
 
 @Data
+@ToString
 public class Contact {
 
-    private WeChatClient weChatClient;
+    private transient WeChatClient weChatClient;
 
     @JSONField(name="Uin")
     private int uin;
@@ -104,4 +108,30 @@ public class Contact {
 
     @JSONField(name="IsOwner")
     private int isOwner;
+
+    protected HttpAPI httpAPI(){
+        return weChatClient.getWeChatCore().getHttpAPI();
+    }
+
+    public void sendMessage(String message){
+        httpAPI().sendMessage(getUserName(),message);
+    }
+
+    public void sendImage(File file){
+        httpAPI().sendImage(getUserName(),file);
+    }
+
+    public void sendVideo(File file){
+        httpAPI().sendVideo(getUserName(),file);
+    }
+
+    /**
+     * 判断是否为群聊
+     * @return
+     */
+    public boolean isGroup(){
+        return getUserName().startsWith("@@");
+    }
+
+
 }

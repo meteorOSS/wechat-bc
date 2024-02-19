@@ -160,7 +160,7 @@ public class FileChunkUploader {
                         .addFormDataPart("name", filename)
                         .addFormDataPart("type", mimeType)
                         .addFormDataPart("size", String.valueOf(fileSize))
-                        .addFormDataPart("mediatype", messageType) // 示例，根据文件类型调整
+                        .addFormDataPart("mediatype", messageType)
                         .addFormDataPart("uploadmediarequest", JSON.toJSONString(uploadMediaRequest)) // 构建上传请求JSON
                         .addFormDataPart("webwx_data_ticket", session.getBaseRequest().getDataTicket())
                         .addFormDataPart("pass_ticket", session.getBaseRequest().getPassTicket())

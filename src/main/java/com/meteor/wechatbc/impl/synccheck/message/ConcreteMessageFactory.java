@@ -38,7 +38,8 @@ public class ConcreteMessageFactory implements MessageFactory {
         }else if(msgType == MsgType.ImgEmoteMsg){
             return JSON.toJavaObject(messageJson, ImageEmoteMessage.class);
         }else if(msgType==MsgType.VideoMsg){
-            return JSON.toJavaObject(messageJson, VideoMessage.class);
+            VideoMessage videoMessage = JSON.toJavaObject(messageJson, VideoMessage.class);
+            return videoMessage;
         }
         return message;
     }

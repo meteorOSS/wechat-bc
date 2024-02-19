@@ -7,4 +7,6 @@ public class VideoMessage extends Message {
     public String getContent() {
         return "(视频消息)";
     }
+
+
 }

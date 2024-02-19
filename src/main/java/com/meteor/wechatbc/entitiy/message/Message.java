@@ -12,7 +12,7 @@ import org.jetbrains.annotations.TestOnly;
 public class Message {
     @JSONField(name = "MsgId")
     private Long msgId;
-
+    
     @JSONField(name = "FromUserName")
     private String fromUserName;
 

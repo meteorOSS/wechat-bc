@@ -4,7 +4,9 @@ public enum MsgType {
     TextMsg("1"), //文本消息
     ImgEmoteMsg("47"), // 图片表情
     ImageMsg("3"),// 图片消息
-    VideoMsg("43"); // 视频消息
+    VideoMsg("43"), // 视频消息
+    APPMsg("49"), // APP消息
+    SysMsg("10000"); // 系统消息
 
     /**
      * 未处理的消息
