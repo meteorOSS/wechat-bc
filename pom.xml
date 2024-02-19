@@ -5,19 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.meteor</groupId>
-    <artifactId>WeChatBc</artifactId>
+    <artifactId>wechat-bc</artifactId>
     <version>1.0.8-SNAPSHOT</version>
 
     <distributionManagement>
         <repository>
             <id>github</id>
             <name>GitHub Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/meteorOSS/wechat-bc</url>
+            <url>https://maven.pkg.github.com/meteoross/wechat-bc</url>
         </repository>
     </distributionManagement>
 
 
     <properties>
+        <github.global.server>github</github.global.server>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

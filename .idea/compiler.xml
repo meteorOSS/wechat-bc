@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="WeChatBc" />
+        <module name="wechat-bc" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="WeChatBc" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
