@@ -1,2 +1,2 @@
-VERSION=v1.0.7
-DESCRIPTION=增加一处空指针判断，修复当plugin.yml未定义指令时报错
+VERSION=v1.0.8
+DESCRIPTION=增加配置文件模块
