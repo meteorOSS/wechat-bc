@@ -61,7 +61,7 @@ public abstract class BasePlugin implements Plugin {
      * @return
      */
     public File getDataFolder(){
-        File file = new File(weChatClient.getDataFolder(),getPluginDescription().getName());
+        File file = new File(weChatClient.getDataFolder(),String.format("plugins/%s",getPluginDescription().getName()));
         if(!file.exists()) file.mkdirs();
         return file;
     }
@@ -72,7 +72,7 @@ public abstract class BasePlugin implements Plugin {
      * @return
      */
     public InputStream getResource(String file){
-        return getClass().getClassLoader().getResourceAsStream("resources/"+file);
+        return getClass().getClassLoader().getResourceAsStream(file);
     }
 
     /**
