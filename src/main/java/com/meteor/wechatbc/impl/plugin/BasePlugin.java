@@ -6,6 +6,7 @@ import com.meteor.wechatbc.config.YamlConfiguration;
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.plugin.Plugin;
 import com.meteor.wechatbc.plugin.PluginDescription;
+import com.meteor.wechatbc.scheduler.Scheduler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -125,5 +126,8 @@ public abstract class BasePlugin implements Plugin {
         return yamlConfiguration;
     }
 
+    public Scheduler getScheduler(){
+        return getWeChatClient().getScheduler();
+    }
 
 }

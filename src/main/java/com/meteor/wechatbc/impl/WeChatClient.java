@@ -7,7 +7,9 @@ import com.meteor.wechatbc.impl.contact.ContactManager;
 import com.meteor.wechatbc.impl.event.EventManager;
 import com.meteor.wechatbc.impl.fileupload.FileChunkUploader;
 import com.meteor.wechatbc.impl.plugin.PluginManager;
+import com.meteor.wechatbc.impl.scheduler.SchedulerImpl;
 import com.meteor.wechatbc.impl.synccheck.SyncCheckRunnable;
+import com.meteor.wechatbc.scheduler.Scheduler;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,6 +35,8 @@ public class WeChatClient {
     @Getter private PluginManager pluginManager;
 
     @Getter private CommandManager commandManager;
+
+    @Getter private Scheduler scheduler;
 
     public WeChatClient(Logger logger){
         this.logger = logger;
@@ -67,6 +71,8 @@ public class WeChatClient {
         this.contactManager = new ContactManager(this);
         this.eventManager = new EventManager(this);
         this.commandManager = new CommandManager();
+
+        this.scheduler = new SchedulerImpl();
 
         // 初始化文件上传服务
         FileChunkUploader.init(this);

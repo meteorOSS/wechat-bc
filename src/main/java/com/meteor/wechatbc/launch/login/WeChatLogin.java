@@ -9,6 +9,7 @@ import com.meteor.wechatbc.util.HttpUrlHelper;
 import okhttp3.*;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -137,6 +138,7 @@ public class WeChatLogin {
         // 等待登陆完成
         this.waitLogin(uuid);
     }
+
 
     public void waitLogin(String uuid){
         QRCodeResponse qrCodeResponse = null;
