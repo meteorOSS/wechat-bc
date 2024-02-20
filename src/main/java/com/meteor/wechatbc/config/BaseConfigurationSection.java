@@ -39,6 +39,12 @@ public abstract class BaseConfigurationSection implements ConfigurationSection {
     }
 
     @Override
+    public List<String> getStringList(String path) {
+        Object value = data.get(path);
+        return value instanceof List ? (List<String>) value : null;
+    }
+
+    @Override
     public void set(String path, Object value) {
         data.put(path, value);
     }

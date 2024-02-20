@@ -55,6 +55,15 @@ public class SimpleConfigurationSection implements ConfigurationSection {
     }
 
     @Override
+    public List<String> getStringList(String path) {
+        Object val = data.get(path);
+        if (val instanceof List) {
+            return (List<String>) val;
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
     public void set(String path, Object value) {
         data.put(path, value);
     }
