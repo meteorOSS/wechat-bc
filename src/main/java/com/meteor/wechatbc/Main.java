@@ -3,7 +3,9 @@ package com.meteor.wechatbc;
 
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.launch.Launch;
+import com.meteor.wechatbc.plugin.Plugin;
 import com.meteor.wechatbc.plugin.PluginClassLoader;
+import com.meteor.wechatbc.scheduler.WeChatRunnable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

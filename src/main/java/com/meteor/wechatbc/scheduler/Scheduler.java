@@ -23,8 +23,8 @@ public interface Scheduler {
      *
      * @param plugin 插件实例
      * @param task 要执行的任务
-     * @param delay 初始延迟（以服务器的tick为单位）
-     * @param period 执行周期（以服务器的tick为单位）
+     * @param delay 初始延迟（秒）
+     * @param period 执行周期（秒）
      * @return 调度的任务
      */
     Task runTaskTimer(Plugin plugin, Runnable task, long delay, long period);
