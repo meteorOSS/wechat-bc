@@ -1,4 +1,4 @@
-# WeChatBc
+![image](https://github.com/meteorOSS/wechat-bc/assets/61687266/d6a31086-b1da-4f8f-8f0d-95dd1865a954)# WeChatBc
 
 > 类似开发公众号一样，开发个人微信号
 
@@ -16,6 +16,17 @@
 * 获取用户信息，设置备注，添加好友....
 * API简单易用。使用java编写扩展插件，打包以jar载入运行 详见 [编写wechatbc插件](https://github.com/meteorOSS/WeChatBc/wiki/%E7%BC%96%E5%86%99WeChatBc%E6%8F%92%E4%BB%B6)
 * 文档 [WeChatBc-WIKI](https://github.com/meteorOSS/WeChatBc/wiki)
+
+## 插件资源
+
+[📌 WeChatSetu: 让机器人随机发送"小姐姐跳舞视频";爬取pixiv图片](https://github.com/meteorOSS/WeChatSetu)
+
+> ![image](https://github.com/meteorOSS/WeChatBc/assets/61687266/86f34b62-5f5b-4a3d-a3cc-cc151606b495)
+
+[📌 chatgpt: 接入chatgpt](https://github.com/meteorOSS/wechat-gpt)
+
+> ![image](https://github.com/meteorOSS/wechat-bc/assets/61687266/510e8af7-fd61-4b4a-a2e6-674328acb79b)
+
 
 ## 安装
 
