@@ -10,10 +10,6 @@
 
 (图片效果需安装 [WeChatSetu插件](https://github.com/meteorOSS/WeChatSetu) )
 
-![image](https://github.com/meteorOSS/wechat-bc/assets/61687266/d6a31086-b1da-4f8f-8f0d-95dd1865a954)
-
-(图片效果需安装 [chatgpt插件](https://github.com/meteorOSS/wechat-gpt) )
-
 ## 支持功能
 
 * 消息回复(好友，群组),文本,视频,文件,语音发送
