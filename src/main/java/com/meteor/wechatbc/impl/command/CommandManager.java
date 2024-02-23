@@ -53,7 +53,7 @@ public class CommandManager {
         }
 
         public String getMainCommand(){
-            System.out.println(command);
+            if(!command.contains(" ")) return command;
             return command.substring(0,command.indexOf(" "));
         }
     }

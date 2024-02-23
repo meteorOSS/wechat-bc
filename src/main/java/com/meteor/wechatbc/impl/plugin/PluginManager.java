@@ -30,7 +30,9 @@ public class PluginManager {
             pluginsFolder.mkdirs();
         }
         for (File pluginFile : pluginsFolder.listFiles()) {
-            this.loadPlugin(pluginFile);
+            if(pluginFile.isFile()){
+                this.loadPlugin(pluginFile);
+            }
         }
         PluginLoader.logger.info("载入了 {} 个插件",pluginMap.size());
     }

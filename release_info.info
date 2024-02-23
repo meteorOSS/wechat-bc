@@ -1,4 +1,4 @@
-VERSION=v1.0.9
-DESCRIPTION=feat: 更新检测
-feat: Scheduler模块
+VERSION=v1.1.0
+DESCRIPTION=fix: 载入插件时未判断是否为jar文件，导致plugins内有插件生成的配置文件时将报错
+fix: 子ConfigurationSection读取不工作
 

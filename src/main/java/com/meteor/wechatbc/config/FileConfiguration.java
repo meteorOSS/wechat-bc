@@ -40,13 +40,21 @@ public abstract class FileConfiguration implements ConfigurationSection {
 
     @Override
     public ConfigurationSection getConfigurationSection(String path) {
-        Object value = data.get(path);
-        if (value instanceof Map) {
-            SimpleConfigurationSection section = new SimpleConfigurationSection();
-            section.data = (Map<String, Object>) value;
-            return section;
+        String[] keys = path.split("\\.");
+        Map<String, Object> current = data;
+
+        for (String key : keys) {
+            Object value = current.get(key);
+            if (value instanceof Map) {
+                current = (Map<String, Object>) value;
+            } else {
+                return null;
+            }
         }
-        return null;
+
+        SimpleConfigurationSection section = new SimpleConfigurationSection();
+        section.data = current;
+        return section;
     }
 
     @Override

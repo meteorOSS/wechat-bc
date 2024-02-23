@@ -107,6 +107,7 @@ public class SyncCheckRunnable {
     private void callMessageEvent(MessageEvent messageEvent){
         Message message = messageEvent.getMessage();
         EventManager eventManager = weChatClient.getEventManager();
+
         eventManager.callEvent(messageEvent);
 
         Session session = weChatClient.getWeChatCore().getSession();

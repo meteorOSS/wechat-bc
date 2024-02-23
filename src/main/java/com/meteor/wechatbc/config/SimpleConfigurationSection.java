@@ -70,13 +70,21 @@ public class SimpleConfigurationSection implements ConfigurationSection {
 
     @Override
     public ConfigurationSection getConfigurationSection(String path) {
-        Object val = data.get(path);
-        if (val instanceof Map) {
-            SimpleConfigurationSection section = new SimpleConfigurationSection();
-            section.data = (Map<String, Object>) val;
-            return section;
+        String[] keys = path.split("\\.");
+        Map<String, Object> current = data;
+
+        for (String key : keys) {
+            Object value = current.get(key);
+            if (value instanceof Map) {
+                current = (Map<String, Object>) value;
+            } else {
+                return null;
+            }
         }
-        return null;
+
+        SimpleConfigurationSection section = new SimpleConfigurationSection();
+        section.data = current;
+        return section;
     }
 
     @Override
