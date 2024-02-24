@@ -27,7 +27,9 @@
 
 > ![image](https://github.com/meteorOSS/wechat-bc/assets/61687266/510e8af7-fd61-4b4a-a2e6-674328acb79b)
 
-如果你基于本项目开发了插件，欢迎在[社区->插件版块](https://github.com/meteorOSS/wechat-bc/discussions/categories/%E6%8F%92%E4%BB%B6%E8%B5%84%E6%BA%90)进行分享，我会把它同步到这里
+你可以在 [社区->插件版块](https://github.com/meteorOSS/wechat-bc/discussions/categories/%E6%8F%92%E4%BB%B6%E8%B5%84%E6%BA%90) 找到更多有趣的插件。
+
+也欢迎你的分享
 
 ## 安装
 
