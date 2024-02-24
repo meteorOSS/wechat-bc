@@ -21,11 +21,7 @@
 
 [📌 WeChatSetu: 让机器人随机发送"小姐姐跳舞视频";爬取pixiv图片](https://github.com/meteorOSS/WeChatSetu)
 
-> ![image](https://github.com/meteorOSS/WeChatBc/assets/61687266/86f34b62-5f5b-4a3d-a3cc-cc151606b495)
-
 [📌 chatgpt: 接入chatgpt](https://github.com/meteorOSS/wechat-gpt)
-
-> ![image](https://github.com/meteorOSS/wechat-bc/assets/61687266/510e8af7-fd61-4b4a-a2e6-674328acb79b)
 
 你可以在 [社区->插件版块](https://github.com/meteorOSS/wechat-bc/discussions/categories/%E6%8F%92%E4%BB%B6%E8%B5%84%E6%BA%90) 找到更多有趣的插件。
 
