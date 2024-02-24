@@ -16,7 +16,7 @@ public class Contact {
     private transient WeChatClient weChatClient;
 
     @JSONField(name="Uin")
-    private int uin;
+    private long uin;
 
     @JSONField(name="UserName")
     private String userName;
@@ -28,10 +28,10 @@ public class Contact {
     private String headImgUrl;
 
     @JSONField(name="ContactFlag")
-    private int contactFlag;
+    private long contactFlag;
 
     @JSONField(name="MemberCount")
-    private int memberCount;
+    private long memberCount;
 
     @JSONField(name="MemberList")
     private List<?> memberList;
@@ -40,19 +40,19 @@ public class Contact {
     private String remarkName;
 
     @JSONField(name="HideInputBarFlag")
-    private int hideInputBarFlag;
+    private long hideInputBarFlag;
 
     @JSONField(name="Sex")
-    private int sex;
+    private long sex;
 
     @JSONField(name="Signature")
     private String signature;
 
     @JSONField(name="VerifyFlag")
-    private int verifyFlag;
+    private long verifyFlag;
 
     @JSONField(name="OwnerUin")
-    private int ownerUin;
+    private long ownerUin;
 
     @JSONField(name="PYInitial")
     private String pyInitial;
@@ -67,13 +67,13 @@ public class Contact {
     private String remarkPYQuanPin;
 
     @JSONField(name="StarFriend")
-    private int starFriend;
+    private long starFriend;
 
     @JSONField(name="AppAccountFlag")
-    private int appAccountFlag;
+    private long appAccountFlag;
 
     @JSONField(name="Statues")
-    private int statues;
+    private long statues;
 
     @JSONField(name="AttrStatus")
     private long attrStatus;
@@ -88,16 +88,16 @@ public class Contact {
     private String alias;
 
     @JSONField(name="SnsFlag")
-    private int snsFlag;
+    private long snsFlag;
 
     @JSONField(name="UniFriend")
-    private int uniFriend;
+    private long uniFriend;
 
     @JSONField(name="DisplayName")
     private String displayName;
 
     @JSONField(name="ChatRoomId")
-    private int chatRoomId;
+    private long chatRoomId;
 
     @JSONField(name="KeyWord")
     private String keyWord;
@@ -106,7 +106,7 @@ public class Contact {
     private String encryChatRoomId;
 
     @JSONField(name="IsOwner")
-    private int isOwner;
+    private long isOwner;
 
     protected HttpAPI httpAPI(){
         return weChatClient.getWeChatCore().getHttpAPI();

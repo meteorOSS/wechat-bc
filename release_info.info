@@ -1,4 +1,3 @@
-VERSION=v1.1.0
-DESCRIPTION=fix: 载入插件时未判断是否为jar文件，导致plugins内有插件生成的配置文件时将报错
-fix: 子ConfigurationSection读取不工作
+VERSION=v1.1.1
+DESCRIPTION=fix: 微信uid等参数过长超int32时无法登陆
 
