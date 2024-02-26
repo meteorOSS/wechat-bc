@@ -64,6 +64,7 @@ public class EventBus {
                     method.setAccessible(accessible);
                 }
             } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
                 throw new RuntimeException(e);
             } finally {
                 Thread.currentThread().setContextClassLoader(originalClassLoader); // 恢复原类加载器

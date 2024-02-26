@@ -22,7 +22,7 @@ public class EventManager {
 
     private final EventBus eventBus;
 
-    private final DefaultPlugin defaultPlugin = new DefaultPlugin();
+    @Getter private final DefaultPlugin defaultPlugin = new DefaultPlugin();
 
     private final Map<Plugin, List<Listener>> pluginListeners = new ConcurrentHashMap<>();
 

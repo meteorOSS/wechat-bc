@@ -1,6 +1,7 @@
 package com.meteor.wechatbc.entitiy.contact;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.meteor.wechatbc.entitiy.message.SentMessage;
 import com.meteor.wechatbc.impl.HttpAPI;
 import com.meteor.wechatbc.impl.WeChatClient;
 import lombok.Data;
@@ -112,16 +113,16 @@ public class Contact {
         return weChatClient.getWeChatCore().getHttpAPI();
     }
 
-    public void sendMessage(String message){
-        httpAPI().sendMessage(getUserName(),message);
+    public SentMessage sendMessage(String message){
+        return httpAPI().sendMessage(getUserName(),message);
     }
 
-    public void sendImage(File file){
-        httpAPI().sendImage(getUserName(),file);
+    public SentMessage sendImage(File file){
+        return httpAPI().sendImage(getUserName(),file);
     }
 
-    public void sendVideo(File file){
-        httpAPI().sendVideo(getUserName(),file);
+    public SentMessage sendVideo(File file){
+        return httpAPI().sendVideo(getUserName(),file);
     }
 
     /**

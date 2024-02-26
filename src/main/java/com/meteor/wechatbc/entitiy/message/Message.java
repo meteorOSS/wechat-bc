@@ -121,4 +121,6 @@ public class Message {
     public MsgType getMsgType(){
         return MsgType.fromIdx(String.valueOf(msgType));
     }
+
+
 }

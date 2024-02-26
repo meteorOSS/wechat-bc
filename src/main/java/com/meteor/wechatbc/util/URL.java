@@ -26,6 +26,7 @@ public class URL {
 
     public final static String GET_VIDEO = "/cgi-bin/mmwebwx-bin/webwxgetvideo";
     public final static String GET_MSG_IMG = "/cgi-bin/mmwebwx-bin/webwxgetmsgimg";
+    public final static String REVOKE = "/cgi-bin/mmwebwx-bin/webwxrevokemsg";
 
     public final static String UPLOAD_FILE = "/cgi-bin/mmwebwx-bin/webwxuploadmedia";
 

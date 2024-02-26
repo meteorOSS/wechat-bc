@@ -1,6 +1,7 @@
 package com.meteor.wechatbc.impl;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.meteor.wechatbc.entitiy.message.SentMessage;
 import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
 
 import java.io.File;
@@ -35,26 +36,28 @@ public interface HttpAPI {
     /**
      * 发送消息
      */
-    JSONObject sendMessage(String toUserName,String content);
+    SentMessage sendMessage(String toUserName, String content);
 
     /**
      * 获得消息图片
      */
     byte[] getMsgImage(String msgId);
 
+    void revoke(SentMessage sentMessage);
+
     /**
      * 发送图片
      *
      * @return
      */
-    boolean sendImage(String toUserName, File file);
+    SentMessage sendImage(String toUserName, File file);
 
     /**
      * 发送视频
      *
      * @return
      */
-    boolean sendVideo(String toUserName, File file);
+    SentMessage sendVideo(String toUserName, File file);
 
     /**
      * 获取用户头像

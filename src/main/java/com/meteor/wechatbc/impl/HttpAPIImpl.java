@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONReader;
 import com.meteor.wechatbc.entitiy.SendMessage;
 import com.meteor.wechatbc.entitiy.contact.Contact;
+import com.meteor.wechatbc.entitiy.message.SentMessage;
 import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.impl.cookie.WeChatCookie;
@@ -168,7 +169,7 @@ public class HttpAPIImpl implements HttpAPI {
 
 
     @Override
-    public JSONObject sendMessage(String toUserName,String content) {
+    public SentMessage sendMessage(String toUserName, String content) {
         Session session = weChatClient.getWeChatCore().getSession();
         String s = HttpUrlHelper.generateTimestampWithRandom();
         SendMessage sendMessage = SendMessage.builder()
@@ -179,7 +180,6 @@ public class HttpAPIImpl implements HttpAPI {
                 .type(MsgType.TextMsg.getIdx())
                 .toUserName(toUserName)
                 .build();
-        BaseRequest baseRequest = session.getBaseRequest();
         HttpUrl httpUrl = URL.BASE_URL.newBuilder()
                 .encodedPath(URL.SEND_MESSAGE)
                 .addQueryParameter("pass_ticket","pass_ticket")
@@ -193,7 +193,8 @@ public class HttpAPIImpl implements HttpAPI {
                 .build();
         try(Response response = okHttpClient.newCall(request).execute()) {
             String body = response.body().string();
-            return JSON.parseObject(body);
+            jsonObject = JSON.parseObject(body);
+            return new SentMessage(sendMessage,jsonObject.getString("MsgID"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -217,7 +218,7 @@ public class HttpAPIImpl implements HttpAPI {
         }
     }
 
-    private void sendVideo(SendMessage sendMessage){
+    private SentMessage sendVideo(SendMessage sendMessage){
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Msg",sendMessage);
@@ -236,12 +237,14 @@ public class HttpAPIImpl implements HttpAPI {
                 .post(RequestBody.create(mediaType,jsonObject.toString()))
                 .build();
         try(Response response = okHttpClient.newCall(request).execute()) {
+            jsonObject = JSON.parseObject(response.body().string());
+            return new SentMessage(sendMessage,jsonObject.getString("MsgID"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void sendImage(SendMessage sendMessage){
+    private SentMessage sendImage(SendMessage sendMessage){
         Session session = weChatClient.getWeChatCore().getSession();
 
         BaseRequest baseRequest = session.getBaseRequest();
@@ -264,7 +267,31 @@ public class HttpAPIImpl implements HttpAPI {
                 .build();
 
         try(Response response = okHttpClient.newCall(request).execute()) {
+            jsonObject = JSON.parseObject(response.body().string());
+            return new SentMessage(sendMessage,jsonObject.getString("MsgID"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    /**
+     * 撤回消息
+     */
+    @Override
+    public void revoke(SentMessage sentMessage){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("ClientMsgId",String.valueOf(sentMessage.getSendMessage().getClientMsgId()));
+        jsonObject.put("SvrMsgId",String.valueOf(sentMessage.getMsgId()));
+        jsonObject.put("ToUserName",sentMessage.getSendMessage().getToUserName());
+
+        HttpUrl httpUrl = URL.BASE_URL.newBuilder().encodedPath(URL.REVOKE).build();
+
+        Request request = BASE_REQUEST.newBuilder()
+                .url(httpUrl)
+                .post(RequestBody.create(mediaType,jsonObject.toString()))
+                .build();
+
+        try(Response response = okHttpClient.newCall(request).execute()) {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -277,7 +304,7 @@ public class HttpAPIImpl implements HttpAPI {
      * @return
      */
     @Override
-    public boolean sendImage(String toUserName, File file) {
+    public SentMessage sendImage(String toUserName, File file) {
 
         // 尝试上传图片
 
@@ -300,16 +327,13 @@ public class HttpAPIImpl implements HttpAPI {
                     .toUserName(toUserName)
                     .mediaId(uploadResponse.getMediaId())
                     .build();
-            sendImage(sendMessage);
+            return sendImage(sendMessage);
         }
-
-        return false;
-
-
+        return null;
     }
 
     @Override
-    public boolean sendVideo(String toUserName, File file) {
+    public SentMessage sendVideo(String toUserName, File file) {
 
         UploadMediaRequest uploadMediaRequest = UploadMediaRequest.builder()
                 .toUserName(toUserName).build();
@@ -333,10 +357,9 @@ public class HttpAPIImpl implements HttpAPI {
                     .build();
 
             // 发送视频消息
-            sendVideo(sendMessage);
+            return sendVideo(sendMessage);
         }
-
-        return false;
+        return null;
     }
 
     @Override

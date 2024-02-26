@@ -2,6 +2,7 @@ package com.meteor.wechatbc.impl.console;
 
 import com.meteor.wechatbc.command.WeChatCommand;
 import com.meteor.wechatbc.command.sender.ConsoleSender;
+import com.meteor.wechatbc.entitiy.message.SentMessage;
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.impl.command.CommandManager;
 import net.minecrell.terminalconsole.SimpleTerminalConsole;
@@ -33,7 +34,12 @@ public class Console extends SimpleTerminalConsole {
     @Override
     protected void runCommand(String command) {
 
-
+        if(command.startsWith("test ")){
+            SentMessage sentMessage = weChatClient.getWeChatCore().getHttpAPI().sendMessage(command.replace("test ", ""), "你好");
+            weChatClient.getScheduler().runTaskLater(weChatClient.getEventManager().getDefaultPlugin(), ()->{
+                weChatClient.getWeChatCore().getHttpAPI().revoke(sentMessage);
+            },5);
+        }
 
         CommandManager commandManager = weChatClient.getCommandManager();
         CommandManager.ExecutorCommand executorCommand = commandManager.getExecutorCommand(command);
