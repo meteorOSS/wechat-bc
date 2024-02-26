@@ -33,11 +33,9 @@ public class ContactManager {
 
     private final WeChatClient weChatClient;
 
-
-
     @Getter private LoadingCache<String, Contact> contactCache
             = Caffeine.newBuilder().maximumSize(1000)
-            .expireAfterWrite(5, TimeUnit.MINUTES)
+            .expireAfterWrite(30, TimeUnit.MINUTES)
             .build(new ContactCacheLoader());
 
     private Map<String,Contact> contactMap;
@@ -57,6 +55,7 @@ public class ContactManager {
         }
 
         if(contactMap.containsKey(userName)) return contactMap.get(userName);
+
         else {
             this.contactMap = ref();
             return contactMap.get(userName);

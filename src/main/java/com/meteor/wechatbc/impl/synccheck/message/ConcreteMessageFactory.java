@@ -10,7 +10,6 @@ import com.meteor.wechatbc.impl.model.message.ImageMessage;
 import com.meteor.wechatbc.impl.model.message.TextMessage;
 import com.meteor.wechatbc.impl.model.message.VideoMessage;
 
-import java.security.cert.CertificateFactory;
 
 public class ConcreteMessageFactory implements MessageFactory {
 
@@ -39,6 +38,7 @@ public class ConcreteMessageFactory implements MessageFactory {
             return JSON.toJavaObject(messageJson, ImageEmoteMessage.class);
         }else if(msgType==MsgType.VideoMsg){
             VideoMessage videoMessage = JSON.toJavaObject(messageJson, VideoMessage.class);
+            videoMessage.setBytes(weChatClient.getWeChatCore().getHttpAPI().getVideo(videoMessage.getMsgId()));
             return videoMessage;
         }
         return message;

@@ -32,6 +32,9 @@ public class Console extends SimpleTerminalConsole {
 
     @Override
     protected void runCommand(String command) {
+
+
+
         CommandManager commandManager = weChatClient.getCommandManager();
         CommandManager.ExecutorCommand executorCommand = commandManager.getExecutorCommand(command);
         Optional.ofNullable(commandManager.getWeChatCommandMap().get(executorCommand.getMainCommand())).ifPresent(weChatCommand -> {

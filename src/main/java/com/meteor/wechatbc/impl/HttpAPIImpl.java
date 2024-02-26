@@ -372,6 +372,29 @@ public class HttpAPIImpl implements HttpAPI {
         return null;
     }
 
+    @Override
+    public byte[] getVideo(long msgId) {
+        Session session = weChatClient.getWeChatCore().getSession();
+        HttpUrl url = URL.BASE_URL.newBuilder().encodedPath(URL.GET_VIDEO)
+                .addQueryParameter("msgid",String.valueOf(msgId))
+                .addQueryParameter("skey",session.getBaseRequest().getSkey())
+                .build();
+
+        Request request = BASE_REQUEST.newBuilder()
+                .url(url)
+                .addHeader("Referer",url.toString())
+                .addHeader("Range","bytes=0-")
+                .get()
+                .build();
+
+        System.out.println("get video()");
+        try(Response response = okHttpClient.newCall(request).execute()) {
+            return response.body().bytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void saveImage(BufferedImage bufferedImage,File file) {
         try {
             ImageIO.write(bufferedImage, "PNG", file);

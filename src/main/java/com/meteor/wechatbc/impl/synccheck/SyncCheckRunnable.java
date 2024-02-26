@@ -17,10 +17,12 @@ import com.meteor.wechatbc.impl.event.sub.MessageEvent;
 import com.meteor.wechatbc.impl.event.sub.OwnerMessageEvent;
 import com.meteor.wechatbc.impl.event.sub.ReceiveMessageEvent;
 import com.meteor.wechatbc.impl.model.Session;
+import com.meteor.wechatbc.impl.model.message.VideoMessage;
 import com.meteor.wechatbc.impl.synccheck.message.MessageProcessor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

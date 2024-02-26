@@ -62,4 +62,9 @@ public interface HttpAPI {
      * @return
      */
     File getIcon(String userName);
+
+    /**
+     * 获取视频消息的响应
+     */
+    byte[] getVideo(long msgId);
 }

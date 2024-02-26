@@ -24,6 +24,7 @@ public class URL {
     public final static String NEWLOGINPAGE = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage";
     public final static String LOGIN = "https://login.wx.qq.com/cgi-bin/mmwebwx-bin/login";
 
+    public final static String GET_VIDEO = "/cgi-bin/mmwebwx-bin/webwxgetvideo";
     public final static String GET_MSG_IMG = "/cgi-bin/mmwebwx-bin/webwxgetmsgimg";
 
     public final static String UPLOAD_FILE = "/cgi-bin/mmwebwx-bin/webwxuploadmedia";
