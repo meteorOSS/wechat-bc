@@ -95,6 +95,7 @@ public abstract class BasePlugin implements Plugin {
                 FileOutputStream fileOutputStream = new FileOutputStream(new File(getDataFolder(), "config.yml"));
         ) {
             byte[] bytes = new byte[resource.available()];
+            if(bytes.length==0) return;
             int length = 0;
             while ((length = resource.read(bytes))!=-1){
                 fileOutputStream.write(bytes,0,length);

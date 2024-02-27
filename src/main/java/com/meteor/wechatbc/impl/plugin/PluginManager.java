@@ -29,6 +29,7 @@ public class PluginManager {
         if(!pluginsFolder.exists()){
             pluginsFolder.mkdirs();
         }
+        PluginLoader.logger.info("开始载入插件");
         for (File pluginFile : pluginsFolder.listFiles()) {
             if(pluginFile.isFile()){
                 this.loadPlugin(pluginFile);
@@ -60,6 +61,10 @@ public class PluginManager {
             PluginLoader.logger.info("插件 [{}] 已存在，无法重新加载",pluginDescription.getName());
             return;
         }
+
+
+        PluginLoader.logger.info("正在载入插件{}",pluginDescription.getName());
+
         URL[] urls = new URL[0];
         try {
             urls = new URL[]{ file.toURI().toURL() };
@@ -78,26 +83,19 @@ public class PluginManager {
                 // 解析指令并创建实例
                 pluginDescription.getCommands().forEach(mainCommand->{
                     WeChatCommand weChatCommand = new WeChatCommand(mainCommand);
+                    PluginLoader.logger.info(" 解析指令 {}",weChatCommand.getMainCommand());
                     weChatClient.getCommandManager().registerCommand(weChatCommand);
                 });
             }
             pluginMap.put(pluginDescription.getName(),plugin);
             // 初始化插件
+            PluginLoader.logger.info(" 初始化 {}",pluginDescription.getMain());
             plugin.init(pluginDescription,weChatClient);
             // 调用插件启动hook
             plugin.onEnable();
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            PluginLoader.logger.info("已载入 {}",pluginDescription.getName());
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class VersionCheck {
 
-    private static final String CURRENT_VERSION = "v1.1.1";
+    private static final String CURRENT_VERSION = "v1.1.2";
 
     public static void check(String owner, String repo) {
 
