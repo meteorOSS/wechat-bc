@@ -26,8 +26,7 @@ public class WeChatClient {
     @Getter private Logger logger;
 
     @Getter @Setter private WeChatCoreImpl weChatCore;
-
-    private SyncCheckRunnable syncCheckRunnable;
+    @Getter private SyncCheckRunnable syncCheckRunnable;
     @Getter private EventManager eventManager;
 
     @Getter private ContactManager contactManager;

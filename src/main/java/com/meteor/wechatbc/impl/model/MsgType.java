@@ -6,7 +6,8 @@ public enum MsgType {
     ImageMsg("3"),// 图片消息
     VideoMsg("43"), // 视频消息
     APPMsg("49"), // APP消息
-    SysMsg("10000"); // 系统消息
+    SysMsg("10000"), // 系统消息
+    RevokeMsg("10002"); // 撤回消息
 
     /**
      * 未处理的消息

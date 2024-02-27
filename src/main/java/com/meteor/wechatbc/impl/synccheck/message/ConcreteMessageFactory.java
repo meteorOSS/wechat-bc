@@ -5,10 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.meteor.wechatbc.entitiy.message.Message;
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.impl.model.MsgType;
-import com.meteor.wechatbc.impl.model.message.ImageEmoteMessage;
-import com.meteor.wechatbc.impl.model.message.ImageMessage;
-import com.meteor.wechatbc.impl.model.message.TextMessage;
-import com.meteor.wechatbc.impl.model.message.VideoMessage;
+import com.meteor.wechatbc.impl.model.message.*;
 
 
 public class ConcreteMessageFactory implements MessageFactory {
@@ -19,6 +16,10 @@ public class ConcreteMessageFactory implements MessageFactory {
         this.weChatClient = weChatClient;
     }
 
+
+
+
+
     /**
      * 根据响应的格式获取message的子类
      * @param messageJson
@@ -28,6 +29,7 @@ public class ConcreteMessageFactory implements MessageFactory {
     public Message createMessage(JSONObject messageJson) {
         Message message = JSON.toJavaObject(messageJson, Message.class);
         MsgType msgType = message.getMsgType();
+
         if(msgType == MsgType.TextMsg){
             return JSON.toJavaObject(messageJson, TextMessage.class);
         }else if(msgType == MsgType.ImageMsg){
@@ -40,7 +42,12 @@ public class ConcreteMessageFactory implements MessageFactory {
             VideoMessage videoMessage = JSON.toJavaObject(messageJson, VideoMessage.class);
             videoMessage.setBytes(weChatClient.getWeChatCore().getHttpAPI().getVideo(videoMessage.getMsgId()));
             return videoMessage;
+        }else if(msgType==MsgType.RevokeMsg){
+            RevokeMessage revokeMessage = JSON.toJavaObject(messageJson, RevokeMessage.class);
+            revokeMessage.setOldMessage(weChatClient.getSyncCheckRunnable().getMessageCache().getIfPresent(revokeMessage.getOldMessageID()));
+            return revokeMessage;
         }
         return message;
     }
 }
+

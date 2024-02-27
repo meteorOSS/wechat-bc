@@ -4,6 +4,8 @@ import com.alibaba.fastjson2.JSONObject;
 import com.meteor.wechatbc.entitiy.message.Message;
 import com.meteor.wechatbc.impl.WeChatClient;
 
+import java.util.List;
+
 /**
  * 消息工厂
  * 用于将原始message转换为 图片消息，文本消息等

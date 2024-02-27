@@ -19,6 +19,7 @@ import com.meteor.wechatbc.impl.event.sub.ReceiveMessageEvent;
 import com.meteor.wechatbc.impl.model.Session;
 import com.meteor.wechatbc.impl.model.message.VideoMessage;
 import com.meteor.wechatbc.impl.synccheck.message.MessageProcessor;
+import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -50,9 +51,9 @@ public class SyncCheckRunnable {
     /**
      * message缓存
      */
-    private Cache<String,Message> messageCache =
+    @Getter private Cache<String,Message> messageCache =
             Caffeine.newBuilder().maximumSize(1000)
-                    .expireAfterWrite(5, TimeUnit.MINUTES) // 五分钟应该足以进行任何操作
+                    .expireAfterWrite(30, TimeUnit.MINUTES)
                     .build();
 
     /**

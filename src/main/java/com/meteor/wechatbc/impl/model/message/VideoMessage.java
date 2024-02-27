@@ -1,6 +1,7 @@
 package com.meteor.wechatbc.impl.model.message;
 
 import com.meteor.wechatbc.entitiy.message.Message;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.io.File;
@@ -15,7 +16,10 @@ public class VideoMessage extends Message {
         return "(视频消息)";
     }
 
-    @Setter private byte[] bytes;
+    @Setter
+    @Getter
+    private byte[] bytes;
+
 
     public File saveFile(File file){
         try(FileOutputStream fileOutputStream = new FileOutputStream(file);

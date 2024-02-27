@@ -36,12 +36,14 @@ public class ImageMessage extends Message {
      * 将图片保存至磁盘
      * @param file
      */
-    public void saveImage(File file,String type) {
+    public File saveImage(File file,String type) {
         try {
             ImageIO.write(convertHexToBufferedImage(), type, file);
+            return file;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
