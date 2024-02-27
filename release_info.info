@@ -1,3 +1,4 @@
-VERSION=v1.1.1
-DESCRIPTION=fix: 微信uid等参数过长超int32时无法登陆
+VERSION=v1.1.2
+DESCRIPTION=feat: 消息撤回接口
+feat: RevokeMessage
 
