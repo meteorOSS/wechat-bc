@@ -5,7 +5,6 @@ import com.meteor.wechatbc.event.EventBus;
 import com.meteor.wechatbc.impl.DefaultPlugin;
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.impl.event.listener.ContactCommandListener;
-import com.meteor.wechatbc.impl.event.listener.RevokeTestListener;
 import com.meteor.wechatbc.plugin.Plugin;
 import lombok.Getter;
 
@@ -38,7 +37,6 @@ public class EventManager {
      */
     public void registerDefaultListener(){
         registerPluginListener(defaultPlugin,new ContactCommandListener(weChatClient));
-        registerPluginListener(defaultPlugin,new RevokeTestListener(weChatClient));
     }
 
     /**
