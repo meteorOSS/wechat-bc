@@ -23,6 +23,8 @@
 
 [📌 chatgpt: 接入chatgpt](https://github.com/meteorOSS/wechat-gpt)
 
+[📌 revoke-listener: 防消息撤回](https://github.com/meteorOSS/revoke-listener)
+
 你可以在 [社区->插件版块](https://github.com/meteorOSS/wechat-bc/discussions/categories/%E6%8F%92%E4%BB%B6%E8%B5%84%E6%BA%90) 找到更多有趣的插件。
 
 也欢迎你的分享
