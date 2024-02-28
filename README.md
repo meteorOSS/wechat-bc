@@ -8,6 +8,9 @@
 
 ![image](https://github.com/meteorOSS/WeChatBc/assets/61687266/dc4bce02-e5c2-416f-9f90-312f1004b9b0)
 
+![image](https://github.com/meteorOSS/wechat-bc/assets/61687266/a5cde024-318d-4c04-b87b-7f56bc7fafa3)
+
+
 (图片效果需安装 [WeChatSetu插件](https://github.com/meteorOSS/WeChatSetu) )
 
 ## 支持功能
@@ -24,6 +27,10 @@
 [📌 chatgpt: 接入chatgpt](https://github.com/meteorOSS/wechat-gpt)
 
 [📌 revoke-listener: 防消息撤回](https://github.com/meteorOSS/revoke-listener)
+
+[📌 wechat-pay: 收款码收款回调](https://github.com/meteorOSS/wechat-pay)
+
+
 
 你可以在 [社区->插件版块](https://github.com/meteorOSS/wechat-bc/discussions/categories/%E6%8F%92%E4%BB%B6%E8%B5%84%E6%BA%90) 找到更多有趣的插件。
 
