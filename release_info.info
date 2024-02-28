@@ -1,4 +1,4 @@
-VERSION=v1.1.3
-DESCRIPTION=fix: 调用saveDefaultConfig()时,如config.yml为空文件将阻塞主线程
+VERSION=v1.1.4
+DESCRIPTION=feat: PayMessage
 
 
