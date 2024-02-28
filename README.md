@@ -54,7 +54,7 @@
 
 本项目仅供学习使用，一切使用本项目造成的后果，开发者概不负责
 
-[![Star History Chart](https://api.star-history.com/svg?repos=meteorOSS/wechat-bc&type=Date)](https://star-history.com/#meteorOSS/wechat-bc&Date)
+[![WeChatBc](https://avatars.githubusercontent.com/u/61687266?v=4)](https://star-history.com/#meteorOSS/wechat-bc&Date)
 
 
 
