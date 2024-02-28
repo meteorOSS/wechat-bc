@@ -8,10 +8,9 @@
 
 ![image](https://github.com/meteorOSS/WeChatBc/assets/61687266/dc4bce02-e5c2-416f-9f90-312f1004b9b0)
 
-![image](https://github.com/meteorOSS/wechat-bc/assets/61687266/a5cde024-318d-4c04-b87b-7f56bc7fafa3)
-
-
 (图片效果需安装 [WeChatSetu插件](https://github.com/meteorOSS/WeChatSetu) )
+
+![image](https://github.com/meteorOSS/wechat-bc/assets/61687266/a5cde024-318d-4c04-b87b-7f56bc7fafa3)
 
 ## 支持功能
 
