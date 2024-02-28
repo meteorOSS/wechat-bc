@@ -46,6 +46,13 @@ public class ConcreteMessageFactory implements MessageFactory {
             RevokeMessage revokeMessage = JSON.toJavaObject(messageJson, RevokeMessage.class);
             revokeMessage.setOldMessage(weChatClient.getSyncCheckRunnable().getMessageCache().getIfPresent(revokeMessage.getOldMessageID()));
             return revokeMessage;
+        }else if(msgType==MsgType.APPMsg){
+            if(message.getContent().contains("收款")){
+                PayMessage payMessage = JSON.toJavaObject(messageJson,PayMessage.class);
+                payMessage.extractAmount();
+                payMessage.extractNotes();
+                return payMessage;
+            }
         }
         return message;
     }

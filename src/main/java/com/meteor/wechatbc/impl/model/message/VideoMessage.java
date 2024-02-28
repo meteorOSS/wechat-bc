@@ -20,7 +20,6 @@ public class VideoMessage extends Message {
     @Getter
     private byte[] bytes;
 
-
     public File saveFile(File file){
         try(FileOutputStream fileOutputStream = new FileOutputStream(file);
         ) {

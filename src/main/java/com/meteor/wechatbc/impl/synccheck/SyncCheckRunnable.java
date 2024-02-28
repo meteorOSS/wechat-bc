@@ -17,6 +17,7 @@ import com.meteor.wechatbc.impl.event.sub.MessageEvent;
 import com.meteor.wechatbc.impl.event.sub.OwnerMessageEvent;
 import com.meteor.wechatbc.impl.event.sub.ReceiveMessageEvent;
 import com.meteor.wechatbc.impl.model.Session;
+import com.meteor.wechatbc.impl.model.message.PayMessage;
 import com.meteor.wechatbc.impl.model.message.VideoMessage;
 import com.meteor.wechatbc.impl.synccheck.message.MessageProcessor;
 import lombok.Getter;
