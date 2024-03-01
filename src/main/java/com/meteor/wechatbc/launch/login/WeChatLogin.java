@@ -6,6 +6,7 @@ import com.meteor.wechatbc.launch.login.model.LoginMode;
 import com.meteor.wechatbc.launch.login.model.QRCodeResponse;
 import com.meteor.wechatbc.util.BaseConfig;
 import com.meteor.wechatbc.util.HttpUrlHelper;
+import com.meteor.wechatbc.util.URL;
 import okhttp3.*;
 import org.apache.logging.log4j.Logger;
 
@@ -116,6 +117,15 @@ public class WeChatLogin {
             baseRequest.setInitCookie(cookies);
             // 设置登录设备ID
             baseRequest.setDeviceId(BaseConfig.getDeviceId());
+
+            Cookie ck = cookies.get(0);
+
+            // 获取cookie的 domain 所属域名
+            URL.setBASE_URL(new HttpUrl.Builder()
+                    .scheme("https")
+                    .host(ck.domain())
+                    .build());
+
             for (Cookie cookie : cookies) {
                 String name = cookie.name();
                 if (name.startsWith("webwx_data_ticket")) {

@@ -1,4 +1,4 @@
-VERSION=v1.1.4
-DESCRIPTION=feat: PayMessage
+VERSION=v1.1.5
+DESCRIPTION=fix: 部分微信号无法登录
 
 

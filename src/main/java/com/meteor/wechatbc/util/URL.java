@@ -1,5 +1,6 @@
 package com.meteor.wechatbc.util;
 
+import lombok.Setter;
 import okhttp3.HttpUrl;
 
 /**
@@ -7,10 +8,14 @@ import okhttp3.HttpUrl;
  */
 public class URL {
 
-    public final static HttpUrl BASE_URL = new HttpUrl.Builder()
+
+
+    @Setter public static HttpUrl BASE_URL = new HttpUrl.Builder()
             .scheme("https")
-            .host("wx2.qq.com")
+            .host("wx.qq.com")
             .build();
+
+
 
     public final static String WXINIT = "/cgi-bin/mmwebwx-bin/webwxinit";
     public final static String SYNCCHECK = "/cgi-bin/mmwebwx-bin/synccheck";
