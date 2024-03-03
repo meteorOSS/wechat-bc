@@ -52,7 +52,9 @@ public class BaseRequest{
             Document document = builder.parse(new ByteArrayInputStream(xmlData.getBytes()));
 
             Element errorElement = (Element) document.getElementsByTagName("error").item(0);
-            if (errorElement == null) {
+
+            String ret = errorElement.getElementsByTagName("ret").item(0).getTextContent();
+            if(ret.equalsIgnoreCase("0")){
                 NodeList skeyList = document.getElementsByTagName("skey");
                 if (skeyList.getLength() > 0) {
                     Element skeyElement = (Element) skeyList.item(0);
@@ -73,8 +75,7 @@ public class BaseRequest{
                     Element passTicketElement = (Element) passTicketList.item(0);
                     this.passTicket = passTicketElement.getTextContent();
                 }
-            } else {
-                String ret = errorElement.getElementsByTagName("ret").item(0).getTextContent();
+            }else {
                 String message = errorElement.getElementsByTagName("message").item(0).getTextContent();
                 LogManager.getLogger("BASE-REQUEST").error("登录失败：" + message + " CODE: " + ret);
                 throw new RuntimeException();
