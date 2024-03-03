@@ -1,4 +1,4 @@
-VERSION=v1.1.5
-DESCRIPTION=fix: 部分微信号无法登录
+VERSION=v1.1.6
+DESCRIPTION=fix: 用户登录失败时，提示信息不准确的问题
 
 
