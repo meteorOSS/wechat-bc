@@ -6,6 +6,7 @@ import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 import lombok.ToString;
 import okhttp3.Cookie;
+import org.apache.logging.log4j.LogManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -49,26 +50,36 @@ public class BaseRequest{
         try {
             builder = factory.newDocumentBuilder();
             Document document = builder.parse(new ByteArrayInputStream(xmlData.getBytes()));
-            NodeList skeyList = document.getElementsByTagName("skey");
-            if (skeyList.getLength() > 0) {
-                Element skeyElement = (Element) skeyList.item(0);
-                this.skey = skeyElement.getTextContent();;
+
+            Element errorElement = (Element) document.getElementsByTagName("error").item(0);
+            if (errorElement == null) {
+                NodeList skeyList = document.getElementsByTagName("skey");
+                if (skeyList.getLength() > 0) {
+                    Element skeyElement = (Element) skeyList.item(0);
+                    this.skey = skeyElement.getTextContent();;
+                }
+                NodeList wxsidList = document.getElementsByTagName("wxsid");
+                if (wxsidList.getLength() > 0) {
+                    Element wxsidElement = (Element) wxsidList.item(0);
+                    this.sid = wxsidElement.getTextContent();
+                }
+                NodeList wxuniList = document.getElementsByTagName("wxuin");
+                if (wxsidList.getLength() > 0) {
+                    Element wxuniElement = (Element) wxuniList.item(0);
+                    this.uin = wxuniElement.getTextContent();
+                }
+                NodeList passTicketList = document.getElementsByTagName("pass_ticket");
+                if (passTicketList.getLength() > 0) {
+                    Element passTicketElement = (Element) passTicketList.item(0);
+                    this.passTicket = passTicketElement.getTextContent();
+                }
+            } else {
+                String ret = errorElement.getElementsByTagName("ret").item(0).getTextContent();
+                String message = errorElement.getElementsByTagName("message").item(0).getTextContent();
+                LogManager.getLogger("BASE-REQUEST").error("登录失败：" + message + " CODE: " + ret);
+                throw new RuntimeException();
             }
-            NodeList wxsidList = document.getElementsByTagName("wxsid");
-            if (wxsidList.getLength() > 0) {
-                Element wxsidElement = (Element) wxsidList.item(0);
-                this.sid = wxsidElement.getTextContent();
-            }
-            NodeList wxuniList = document.getElementsByTagName("wxuin");
-            if (wxsidList.getLength() > 0) {
-                Element wxuniElement = (Element) wxuniList.item(0);
-                this.uin = wxuniElement.getTextContent();
-            }
-            NodeList passTicketList = document.getElementsByTagName("pass_ticket");
-            if (passTicketList.getLength() > 0) {
-                Element passTicketElement = (Element) passTicketList.item(0);
-                this.passTicket = passTicketElement.getTextContent();
-            }
+
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

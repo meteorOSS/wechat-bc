@@ -118,12 +118,16 @@ public class WeChatLogin {
             // 设置登录设备ID
             baseRequest.setDeviceId(BaseConfig.getDeviceId());
 
-            Cookie ck = cookies.get(0);
+            String baseDomain = "wx.qq.com";
+            if (!cookies.isEmpty()) {
+                Cookie ck = cookies.get(0);
+                baseDomain = ck.domain();
+            }
 
             // 获取cookie的 domain 所属域名
             URL.setBASE_URL(new HttpUrl.Builder()
                     .scheme("https")
-                    .host(ck.domain())
+                    .host(baseDomain)
                     .build());
 
             for (Cookie cookie : cookies) {
