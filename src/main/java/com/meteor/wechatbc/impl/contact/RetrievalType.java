@@ -2,7 +2,7 @@ package com.meteor.wechatbc.impl.contact;
 
 public enum RetrievalType {
 
-    NICK_NAME("根据昵称查询"),USER_NAME("根据username查询");
+    NICK_NAME("根据昵称查询"),USER_NAME("根据username查询"),REMARK_NAME("根据备注查询");
     private String comment;
 
     RetrievalType(String comment){

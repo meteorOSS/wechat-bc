@@ -51,6 +51,7 @@ public class ContactManager {
 
         retrievalTypeRetrievalStrategyMap.put(RetrievalType.NICK_NAME,new NickNameStrategy(this.contactMap));
         retrievalTypeRetrievalStrategyMap.put(RetrievalType.USER_NAME,new UserNameStrategy());
+        retrievalTypeRetrievalStrategyMap.put(RetrievalType.REMARK_NAME,new RemarkStrategy(this.contactMap));
 
         this.weChatClient.getLogger().info("联系人列表数量: "+contactMap.size());
     }
@@ -63,6 +64,14 @@ public class ContactManager {
      */
     public Contact getContact(RetrievalType retrievalType,String targetKey){
         return retrievalTypeRetrievalStrategyMap.get(retrievalType).getContact(contactMap,targetKey);
+    }
+
+    public Contact getContactByNickName(String nickName){
+        return retrievalTypeRetrievalStrategyMap.get(RetrievalType.NICK_NAME).getContact(contactMap,nickName);
+    }
+
+    public Contact getContactByRemark(String remark){
+        return retrievalTypeRetrievalStrategyMap.get(RetrievalType.REMARK_NAME).getContact(contactMap,remark);
     }
 
     private Contact getContact(String userName){
