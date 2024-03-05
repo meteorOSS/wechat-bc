@@ -133,4 +133,11 @@ public class Contact {
         return getUserName().startsWith("@@");
     }
 
+    /**
+     * 用户类型
+     * @return
+     */
+    public ContactType getContactType(){
+        return ContactType.from(this);
+    }
 }
