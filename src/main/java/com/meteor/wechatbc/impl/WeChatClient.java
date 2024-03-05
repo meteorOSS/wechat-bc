@@ -58,7 +58,9 @@ public class WeChatClient {
     public void mkDirs(){
         File dataFolder = getDataFolder();
         File iconFolder = new File(dataFolder,"img/icon");
+        File voiceFolder = new File(dataFolder, "voice");
         if(!iconFolder.exists()) iconFolder.mkdirs();
+        if(!voiceFolder.exists()) voiceFolder.mkdirs();
     }
 
     /**

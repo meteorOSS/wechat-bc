@@ -7,6 +7,8 @@ import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.impl.model.MsgType;
 import com.meteor.wechatbc.impl.model.message.*;
 
+import java.io.File;
+
 
 public class ConcreteMessageFactory implements MessageFactory {
 
@@ -53,6 +55,11 @@ public class ConcreteMessageFactory implements MessageFactory {
                 payMessage.extractNotes();
                 return payMessage;
             }
+        }else if(msgType==MsgType.VoiceMsg){
+            VoiceMessage voiceMessage = JSON.toJavaObject(messageJson, VoiceMessage.class);
+            voiceMessage.setBytes(weChatClient.getWeChatCore().getHttpAPI().getVoice(voiceMessage.getMsgId()));
+            voiceMessage.saveVoice(new File(weChatClient.getDataFolder(), "voice/" + voiceMessage.getMsgId() + ".mp3"));
+
         }
         return message;
     }

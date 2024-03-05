@@ -70,4 +70,11 @@ public interface HttpAPI {
      * 获取视频消息的响应
      */
     byte[] getVideo(long msgId);
+
+    /**
+     * 获取语音消息
+     * @param msgId
+     * @return
+     */
+    byte[] getVoice(long msgId);
 }

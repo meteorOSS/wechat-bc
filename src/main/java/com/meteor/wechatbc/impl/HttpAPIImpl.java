@@ -6,8 +6,8 @@ import com.alibaba.fastjson2.JSONReader;
 import com.meteor.wechatbc.entitiy.SendMessage;
 import com.meteor.wechatbc.entitiy.contact.Contact;
 import com.meteor.wechatbc.entitiy.message.SentMessage;
-import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
+import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
 import com.meteor.wechatbc.impl.cookie.WeChatCookie;
 import com.meteor.wechatbc.impl.fileupload.FileChunkUploader;
 import com.meteor.wechatbc.impl.fileupload.model.UploadMediaRequest;
@@ -411,6 +411,28 @@ public class HttpAPIImpl implements HttpAPI {
                 .build();
 
         System.out.println("get video()");
+        try(Response response = okHttpClient.newCall(request).execute()) {
+            return response.body().bytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public byte[] getVoice(long msgId){
+        Session session = weChatClient.getWeChatCore().getSession();
+        HttpUrl url = URL.BASE_URL.newBuilder().encodedPath(URL.GET_VOICE)
+                .addQueryParameter("msgid",String.valueOf(msgId))
+                .addQueryParameter("skey",session.getBaseRequest().getSkey())
+                .build();
+
+        Request request = BASE_REQUEST.newBuilder()
+                .url(url)
+                .addHeader("Referer",url.toString())
+                .addHeader("Range","bytes=0-")
+                .get()
+                .build();
+
         try(Response response = okHttpClient.newCall(request).execute()) {
             return response.body().bytes();
         } catch (IOException e) {
