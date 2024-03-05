@@ -1,4 +1,6 @@
-VERSION=v1.1.6
-DESCRIPTION=fix: 用户登录失败时，提示信息不准确的问题
+VERSION=v1.1.7
+DESCRIPTION=feat: 根据username,备注,昵称来获取Contact对象
+feat: 语音消息的响应
+feat: 用户类型的区分(群,公众号,好友)
 
 
