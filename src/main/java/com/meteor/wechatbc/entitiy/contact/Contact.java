@@ -133,5 +133,4 @@ public class Contact {
         return getUserName().startsWith("@@");
     }
 
-
 }

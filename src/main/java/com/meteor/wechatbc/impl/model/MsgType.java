@@ -1,6 +1,9 @@
 package com.meteor.wechatbc.impl.model;
 
-public enum MsgType {
+import com.meteor.wechatbc.entitiy.message.Message;
+import com.meteor.wechatbc.impl.model.message.*;
+
+public enum MsgType{
     TextMsg("1"), //文本消息
     ImgEmoteMsg("47"), // 图片表情
     ImageMsg("3"),// 图片消息
@@ -19,6 +22,8 @@ public enum MsgType {
      **/
 
     private String idx;
+
+
     MsgType(String idx) {
         this.idx = idx;
     }

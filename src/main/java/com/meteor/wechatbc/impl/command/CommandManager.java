@@ -1,6 +1,8 @@
 package com.meteor.wechatbc.impl.command;
 
 import com.meteor.wechatbc.command.WeChatCommand;
+import com.meteor.wechatbc.entitiy.message.Message;
+import com.meteor.wechatbc.impl.model.MsgType;
 import lombok.Data;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;

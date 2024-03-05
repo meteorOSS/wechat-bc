@@ -38,14 +38,32 @@ public class ContactManager {
             .expireAfterWrite(30, TimeUnit.MINUTES)
             .build(new ContactCacheLoader());
 
+
+    private Map<RetrievalType,RetrievalStrategy> retrievalTypeRetrievalStrategyMap;
+
     private Map<String,Contact> contactMap;
 
     public ContactManager(WeChatClient weChatClient){
         this.weChatClient = weChatClient;
         this.contactMap = ref();
+
+        this.retrievalTypeRetrievalStrategyMap = new HashMap<>();
+
+        retrievalTypeRetrievalStrategyMap.put(RetrievalType.NICK_NAME,new NickNameStrategy(this.contactMap));
+        retrievalTypeRetrievalStrategyMap.put(RetrievalType.USER_NAME,new UserNameStrategy());
+
         this.weChatClient.getLogger().info("联系人列表数量: "+contactMap.size());
     }
 
+    /**
+     * 根据搜索策略寻找用户
+     * @param retrievalType
+     * @param targetKey
+     * @return
+     */
+    public Contact getContact(RetrievalType retrievalType,String targetKey){
+        return retrievalTypeRetrievalStrategyMap.get(retrievalType).getContact(contactMap,targetKey);
+    }
 
     private Contact getContact(String userName){
 

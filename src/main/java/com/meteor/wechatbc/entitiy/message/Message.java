@@ -2,6 +2,7 @@ package com.meteor.wechatbc.entitiy.message;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.meteor.wechatbc.impl.model.MsgType;
+import com.meteor.wechatbc.impl.model.message.VideoMessage;
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
