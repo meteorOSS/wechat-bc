@@ -1,10 +1,12 @@
 package com.meteor.wechatbc.impl;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.meteor.wechatbc.entitiy.contact.GetBatchContact;
 import com.meteor.wechatbc.entitiy.message.SentMessage;
 import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
 
 import java.io.File;
+import java.util.List;
 
 public interface HttpAPI {
 
@@ -32,6 +34,14 @@ public interface HttpAPI {
      * 取得联系人列表
      */
     JSONObject getContact();
+
+    /**
+     * 批量获取联系人详情，人或群均可。获取群详情主要是获取群内联系人列表。获取人详情主要是获取群内的某个人的详细信息
+     *
+     * @param queryContactList
+     * @return
+     */
+    JSONObject batchGetContactDetail(List<GetBatchContact> queryContactList);
 
     /**
      * 发送消息
