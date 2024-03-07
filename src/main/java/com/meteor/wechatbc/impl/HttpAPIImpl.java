@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONReader;
 import com.meteor.wechatbc.entitiy.SendMessage;
 import com.meteor.wechatbc.entitiy.contact.Contact;
+import com.meteor.wechatbc.entitiy.contact.GetBatchContact;
 import com.meteor.wechatbc.entitiy.message.SentMessage;
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
@@ -26,6 +27,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -167,6 +170,39 @@ public class HttpAPIImpl implements HttpAPI {
         }
     }
 
+
+    @Override
+    public JSONObject batchGetContactDetail(List<GetBatchContact> queryContactList) {
+        if (queryContactList == null || queryContactList.isEmpty()) {
+            queryContactList = new ArrayList<>();
+        }
+
+        Integer count = queryContactList.size();
+        Session session = weChatClient.getWeChatCore().getSession();
+        BaseRequest baseRequest = session.getBaseRequest();
+        HttpUrl httpUrl = URL.BASE_URL.newBuilder()
+                .encodedPath(URL.BATCH_GET_CONTACT)
+                .addQueryParameter("skey", baseRequest.getSkey())
+                .addQueryParameter("pass_ticket", baseRequest.getPassTicket())
+                .addQueryParameter("rr", String.valueOf(System.currentTimeMillis()))
+                .addQueryParameter("type", "ex")
+                .build();
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("Count", count);
+        jsonObject.put("List", queryContactList);
+        Request request = BASE_REQUEST.newBuilder().url(httpUrl)
+                .post(RequestBody.create(mediaType, jsonObject.toString()))
+                .build();
+        try (
+                Response response = okHttpClient.newCall(request).execute();
+        ) {
+            String body = response.body().string();
+            return JSON.parseObject(body);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public SentMessage sendMessage(String toUserName, String content) {

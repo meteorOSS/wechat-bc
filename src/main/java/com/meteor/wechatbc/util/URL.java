@@ -24,6 +24,7 @@ public class URL {
 
     public final static String SEND_MESSAGE = "/cgi-bin/mmwebwx-bin/webwxsendmsg";
     public final static String GET_CONTACT = "/cgi-bin/mmwebwx-bin/webwxgetcontact";
+    public final static String BATCH_GET_CONTACT = "/cgi-bin/mmwebwx-bin/webwxbatchgetcontact";
 
     public final static String LOGINJS = "https://login.wx.qq.com/jslogin";
     public final static String NEWLOGINPAGE = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage";
