@@ -1,11 +1,13 @@
 package com.meteor.wechatbc;
 
 
+import com.meteor.wechatbc.entitiy.contact.Contact;
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.launch.Launch;
 import com.meteor.wechatbc.plugin.Plugin;
 import com.meteor.wechatbc.plugin.PluginClassLoader;
 import com.meteor.wechatbc.scheduler.WeChatRunnable;
+import com.meteor.wechatbc.util.BaseConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,6 +30,8 @@ public class Main implements Launch {
                 weChatClient.stop();
             }
         }));
+
+
         return new Main().start();
     }
 
@@ -45,10 +49,14 @@ public class Main implements Launch {
         weChatClient.initPluginManager();
 
         try {
+            System.out.println("getContactByNickName");
+            Contact contact = weChatClient.getContactManager().getContactByNickName("zzzsh");
+            System.out.println(contact.toString());
             weChatClient.loop();
         }finally {
             weChatClient.stop();
         }
+
         return 0;
     }
 
