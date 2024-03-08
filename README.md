@@ -29,11 +29,7 @@
 
 [📌 wechat-pay: 收款码收款回调](https://github.com/meteorOSS/wechat-pay)
 
-
-
-你可以在 [社区->插件版块](https://github.com/meteorOSS/wechat-bc/discussions/categories/%E6%8F%92%E4%BB%B6%E8%B5%84%E6%BA%90) 找到更多有趣的插件。
-
-也欢迎你的分享
+你可以在 https://github.com/meteorOSS/wechat-bc/issues/28 分享你编写的插件，我会把它们更新到这里
 
 ## 安装
 
