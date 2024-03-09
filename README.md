@@ -2,7 +2,7 @@
 
 > 类似开发公众号一样，开发个人微信号
 
-参考了Bukkit的框架设计，呼吸顺畅的编写你自己的逻辑 ⭐
+采用了类似Bukkit的插件化框架设计，基于wechatbc独立且呼吸顺畅的开发扩展模块 ⭐
 
 ![image](https://github.com/meteorOSS/WeChatBc/assets/61687266/86f34b62-5f5b-4a3d-a3cc-cc151606b495)
 
