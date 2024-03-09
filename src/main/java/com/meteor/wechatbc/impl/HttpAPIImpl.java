@@ -446,7 +446,6 @@ public class HttpAPIImpl implements HttpAPI {
                 .get()
                 .build();
 
-        System.out.println("get video()");
         try(Response response = okHttpClient.newCall(request).execute()) {
             return response.body().bytes();
         } catch (IOException e) {

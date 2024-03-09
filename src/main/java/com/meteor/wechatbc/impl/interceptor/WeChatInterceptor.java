@@ -78,17 +78,6 @@ public class WeChatInterceptor implements Interceptor {
                 .method(originalRequest.method(), requestBody)
                 .build();
 
-
-        if(originalRequest.url().encodedPath().equalsIgnoreCase(URL.SEND_VIDEO)){
-
-            okio.Buffer buffer = new okio.Buffer();
-            newRequest.body().writeTo(buffer);
-            String rbody = buffer.readUtf8();
-            System.out.println("Sending request to URL: " + request.url());
-            System.out.println("Request body: " + rbody);
-
-        }
-
         return chain.proceed(newRequest);
     }
 

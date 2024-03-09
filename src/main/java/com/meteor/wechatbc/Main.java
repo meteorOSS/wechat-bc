@@ -49,9 +49,6 @@ public class Main implements Launch {
         weChatClient.initPluginManager();
 
         try {
-            System.out.println("getContactByNickName");
-            Contact contact = weChatClient.getContactManager().getContactByNickName("zzzsh");
-            System.out.println(contact.toString());
             weChatClient.loop();
         }finally {
             weChatClient.stop();

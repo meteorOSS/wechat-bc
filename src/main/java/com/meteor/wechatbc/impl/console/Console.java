@@ -1,11 +1,17 @@
 package com.meteor.wechatbc.impl.console;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.meteor.wechatbc.command.WeChatCommand;
 import com.meteor.wechatbc.command.sender.ConsoleSender;
+import com.meteor.wechatbc.entitiy.contact.Contact;
+import com.meteor.wechatbc.entitiy.contact.GetBatchContact;
 import com.meteor.wechatbc.entitiy.message.SentMessage;
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.impl.command.CommandManager;
 import net.minecrell.terminalconsole.SimpleTerminalConsole;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.reader.impl.history.DefaultHistory;
 
 import java.io.File;
 import java.util.Arrays;
@@ -30,17 +36,8 @@ public class Console extends SimpleTerminalConsole {
         return true;
     }
 
-
     @Override
     protected void runCommand(String command) {
-
-        if(command.startsWith("test ")){
-            SentMessage sentMessage = weChatClient.getWeChatCore().getHttpAPI().sendMessage(command.replace("test ", ""), "你好");
-            weChatClient.getScheduler().runTaskLater(weChatClient.getEventManager().getDefaultPlugin(), ()->{
-                weChatClient.getWeChatCore().getHttpAPI().revoke(sentMessage);
-            },5);
-        }
-
         CommandManager commandManager = weChatClient.getCommandManager();
         CommandManager.ExecutorCommand executorCommand = commandManager.getExecutorCommand(command);
         Optional.ofNullable(commandManager.getWeChatCommandMap().get(executorCommand.getMainCommand())).ifPresent(weChatCommand -> {
@@ -50,6 +47,10 @@ public class Console extends SimpleTerminalConsole {
 
     @Override
     protected void shutdown() {
+    }
 
+    @Override
+    protected LineReader buildReader(LineReaderBuilder builder) {
+        return builder.history(new DefaultHistory()).build();
     }
 }

@@ -41,7 +41,7 @@ public class ContactManager {
 
     private Map<RetrievalType,RetrievalStrategy> retrievalTypeRetrievalStrategyMap;
 
-    private Map<String,Contact> contactMap;
+    @Getter private Map<String,Contact> contactMap;
 
     public ContactManager(WeChatClient weChatClient){
         this.weChatClient = weChatClient;

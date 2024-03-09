@@ -33,7 +33,6 @@ public enum MsgType{
     }
 
     public static MsgType fromIdx(String idx){
-        System.out.println("msgid: "+idx);
         for (MsgType value : MsgType.values()) {
             if(value.getIdx().equalsIgnoreCase(idx)) return value;
         }

@@ -38,5 +38,4 @@ public interface Scheduler {
      * @return 调度的任务
      */
     Task runTask(Plugin plugin, Runnable task);
-
 }
