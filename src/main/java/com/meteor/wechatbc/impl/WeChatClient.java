@@ -1,5 +1,6 @@
 package com.meteor.wechatbc.impl;
 
+import com.meteor.wechatbc.entitiy.contact.Contact;
 import com.meteor.wechatbc.entitiy.session.BaseRequest;
 import com.meteor.wechatbc.impl.command.CommandManager;
 import com.meteor.wechatbc.impl.console.Console;
@@ -9,11 +10,16 @@ import com.meteor.wechatbc.impl.fileupload.FileChunkUploader;
 import com.meteor.wechatbc.impl.plugin.PluginManager;
 import com.meteor.wechatbc.impl.scheduler.SchedulerImpl;
 import com.meteor.wechatbc.impl.synccheck.SyncCheckRunnable;
+import com.meteor.wechatbc.launch.login.PrintQRCodeCallBack;
+import com.meteor.wechatbc.launch.login.WeChatLogin;
 import com.meteor.wechatbc.scheduler.Scheduler;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.spi.LoggerAdapter;
+import org.jline.utils.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,6 +52,7 @@ public class WeChatClient {
             this.weChatCore = new WeChatCoreImpl(this,
                     baseRequest);
             this.weChatCore.getHttpAPI().init();
+
             return true;
         }catch (Exception e){
             return false;
@@ -72,13 +79,17 @@ public class WeChatClient {
         this.contactManager = new ContactManager(this);
         this.eventManager = new EventManager(this);
         this.commandManager = new CommandManager();
-
         this.scheduler = new SchedulerImpl();
 
         // 初始化文件上传服务
         FileChunkUploader.init(this);
         this.mkDirs();
 
+        this.initPluginManager();
+
+        Contact user = this.weChatCore.getSession().getWxInitInfo().getUser();
+
+        logger = LogManager.getLogger(String.format("%s(%s)",user.getNickName(),user.getUin()));
     }
 
     public void initPluginManager(){
@@ -98,6 +109,25 @@ public class WeChatClient {
             e.printStackTrace();
             logger.error("因为一些错误，控制台停止运行了");
         }
+    }
+
+    private WeChatLogin weChatLogin = new WeChatLogin(LogManager.getLogger("WECHAT_LOGIN"));
+
+    /**
+     * 登录
+     */
+    public void login(PrintQRCodeCallBack printQRCodeCallBack){
+        String loginUUID = weChatLogin.getLoginUUID();
+
+        printQRCodeCallBack.print(loginUUID);
+
+        weChatLogin.waitLogin(loginUUID);
+
+        BaseRequest loginInfo = weChatLogin.getLoginInfo();
+
+        this.logger = LogManager.getLogger(loginInfo.getUin());
+
+        this.initWeChatCore(loginInfo);
     }
 
     public void stop(){

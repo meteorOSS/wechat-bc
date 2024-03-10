@@ -23,7 +23,6 @@ import static com.meteor.wechatbc.util.URL.*;
  * 扫码登陆微信
  */
 public class WeChatLogin {
-
     private final OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .cookieJar(new WeChatCookieJar())
             .connectTimeout(30, TimeUnit.MINUTES)
@@ -144,15 +143,6 @@ public class WeChatLogin {
         }
     }
 
-    // 打印二维码
-    public void login(){
-        String uuid = getLoginUUID();
-        String url = "https://login.weixin.qq.com/qrcode/"+uuid;
-        System.out.println("访问: "+url+" 进行登录!");
-        // 等待登陆完成
-        this.waitLogin(uuid);
-    }
-
 
     public void waitLogin(String uuid){
         QRCodeResponse qrCodeResponse = null;
@@ -163,9 +153,6 @@ public class WeChatLogin {
         }
         // 获取登陆信息
         this.baseRequest = getLoginInfo(qrCodeResponse);
-        if(baseRequest==null) {
-            System.out.println("base request is null");
-        }
         logger.info("已取得登录信息:");
         logger.info(baseRequest.toString());
     }

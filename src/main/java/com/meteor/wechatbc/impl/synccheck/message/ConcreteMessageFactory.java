@@ -59,7 +59,6 @@ public class ConcreteMessageFactory implements MessageFactory {
             VoiceMessage voiceMessage = JSON.toJavaObject(messageJson, VoiceMessage.class);
             voiceMessage.setBytes(weChatClient.getWeChatCore().getHttpAPI().getVoice(voiceMessage.getMsgId()));
             voiceMessage.saveVoice(new File(weChatClient.getDataFolder(), "voice/" + voiceMessage.getMsgId() + ".mp3"));
-
         }
         return message;
     }
