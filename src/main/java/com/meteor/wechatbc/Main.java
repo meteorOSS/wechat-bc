@@ -56,8 +56,6 @@ public class Main{
         weChatClient = new WeChatClient();
         // 登录
         weChatClient.login(new DefaultPrintQRCodeCallBack());
-        // 初始化
-        weChatClient.start();
         try {
             // 挂起控制台
             weChatClient.loop();

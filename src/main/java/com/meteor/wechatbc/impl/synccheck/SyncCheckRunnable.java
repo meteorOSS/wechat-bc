@@ -82,9 +82,6 @@ public class SyncCheckRunnable {
 
         for (int i = 0; i < addMsgList.size(); i++) {
             JSONObject messageJson = addMsgList.getJSONObject(i);
-
-            System.out.println(messageJson.toString());
-
             Message message = messageProcessor.processMessage(messageJson);
 
             weChatClient.getLogger().debug(message.toString());

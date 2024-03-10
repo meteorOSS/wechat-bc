@@ -128,6 +128,8 @@ public class WeChatClient {
         this.logger = LogManager.getLogger(loginInfo.getUin());
 
         this.initWeChatCore(loginInfo);
+
+        this.start();
     }
 
     public void stop(){
