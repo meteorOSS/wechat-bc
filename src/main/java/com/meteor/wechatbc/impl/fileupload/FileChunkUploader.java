@@ -49,7 +49,6 @@ public class FileChunkUploader {
         INSTANCE = new FileChunkUploader(weChatClient);
     }
 
-
     private final long CHUNK_SIZE = 524288; // 分块大小 : 5m
 
     /**
@@ -97,7 +96,6 @@ public class FileChunkUploader {
             String filename = file.getName();
 
             // 获取文件上传类型
-
             MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
             String mimeType = fileTypeMap.getContentType(file);
 
@@ -105,7 +103,6 @@ public class FileChunkUploader {
             String md5 = calculateFileMD5(file);
             // 文件类型
             String messageType = FileTypeDetector.getMessageType(file.getName());
-            System.out.println("文件类型： "+messageType);
 
             long fileSize = file.length();
             // 分块数量 (向上取整)
@@ -119,19 +116,15 @@ public class FileChunkUploader {
             uploadMediaRequest.setFromUserName(session.getWxInitInfo().getUser().getUserName());
 
             for(int chunk=0;chunk<chunks;chunk++){
-
                 // 定位当前块的起始位置
                 long start = chunk * CHUNK_SIZE;
-
                 // 计算当前块的大小（最后一块可能小于chunkSize）
                 long chunkLength = Math.min(fileSize - start, CHUNK_SIZE);
-
                 RequestBody chunkBody = new RequestBody() {
                     @Override
                     public MediaType contentType() {
                         return MediaType.parse(mimeType); // 文件的MediaType
                     }
-
                     @Override
                     public void writeTo(BufferedSink sink) throws IOException {
                         try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
@@ -146,14 +139,11 @@ public class FileChunkUploader {
                             }
                         }
                     }
-
                     @Override
                     public long contentLength() throws IOException {
                         return chunkLength; // 当前块的大小
                     }
                 };
-
-
                 MultipartBody.Builder builder = new MultipartBody.Builder()
                         .setType(MultipartBody.FORM)
                         .addFormDataPart("id", "WECHAT_BC")
@@ -168,32 +158,23 @@ public class FileChunkUploader {
                         .addFormDataPart("lastModifiedDate", new Date().toString())
                         .addFormDataPart("chunk", String.valueOf(chunk))
                         .addFormDataPart("filename",filename,chunkBody);
-
                 if(chunks>1){
                     builder.addFormDataPart("chunks", String.valueOf(chunks));
                 }
-
                 HttpUrl httpUrl = URL.BASE_URL.newBuilder()
                         .encodedPath(URL.UPLOAD_FILE)
                         .addQueryParameter("f","json")
                         .build();
-
-
                 Request request = httpAPI.getBASE_REQUEST()
                         .newBuilder()
                         .url(httpUrl)
                         .post(builder.build())
                         .build();
-
                 try(
                         Response response = httpAPI.getOkHttpClient().newCall(request).execute();
                 ) {
-
                     logger.debug("[{}] {} / {}",filename,chunk+1,chunks);
-
-
                     UploadResponse uploadResponse = JSON.toJavaObject(response.body().string(), UploadResponse.class);
-
                     // 检查中途块传输是否出现问题
                     if(chunk != chunks-1){
                         if(!uploadResponse.isFull()){
@@ -205,10 +186,7 @@ public class FileChunkUploader {
                         return uploadResponse;
                     }
                 }
-
             }
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (NoSuchAlgorithmException e) {

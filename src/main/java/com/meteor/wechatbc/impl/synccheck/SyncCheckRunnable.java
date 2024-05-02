@@ -13,6 +13,7 @@ import com.meteor.wechatbc.entitiy.synccheck.SyncCheckResponse;
 import com.meteor.wechatbc.entitiy.synccheck.SyncCheckRetcode;
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.impl.event.EventManager;
+import com.meteor.wechatbc.impl.event.sub.ClientDeathEvent;
 import com.meteor.wechatbc.impl.event.sub.MessageEvent;
 import com.meteor.wechatbc.impl.event.sub.OwnerMessageEvent;
 import com.meteor.wechatbc.impl.event.sub.ReceiveMessageEvent;
@@ -88,19 +89,14 @@ public class SyncCheckRunnable {
 
             messageCache.put(String.valueOf(message.getMsgId()),message);
 
-            logger.debug("[msg type] {}",message.getMsgType());
-
             String nickName = Optional.ofNullable(weChatClient.getContactManager().getContactCache().get(message.getFromUserName()))
                             .map(Contact::getNickName)
                                     .orElse("未知");
 
             String toUser = Optional.ofNullable(weChatClient.getContactManager().getContactCache().get(message.getToUserName()))
                             .map(Contact::getNickName).orElse("未知");
-
             logger.info("{}>{} : {}", nickName, toUser, message.getContent());
-
             callMessageEvent(new MessageEvent(messageCache.getIfPresent(String.valueOf(message.getMsgId()))));
-
         }
     }
 
@@ -133,12 +129,11 @@ public class SyncCheckRunnable {
             HttpAPI httpAPI = weChatClient.getWeChatCore().getHttpAPI();
             try {
                 SyncCheckResponse syncCheckResponse = httpAPI.syncCheck();
-                if(syncCheckResponse.getSyncCheckRetcode()== SyncCheckRetcode.NORMAL){
+                if(syncCheckResponse.getSyncCheckRetcode() == SyncCheckRetcode.NORMAL){
                     handlerMessage();
                 }else {
+                    weChatClient.getEventManager().callEvent(new ClientDeathEvent(weChatClient,syncCheckResponse.getSyncCheckSelector()));
                     logger.error(syncCheckResponse.getSyncCheckRetcode().getMessage());
-                    weChatClient.getLogger().info("请尝试重新登录...");
-                    weChatClient.stop();
                 }
             }catch (Exception e){
                 e.printStackTrace();

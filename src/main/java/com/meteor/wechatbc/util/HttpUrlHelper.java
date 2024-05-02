@@ -4,7 +4,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import java.io.IOException;
-import java.time.Instant;
 import java.util.Map;
 import java.util.Random;
 
@@ -58,7 +57,6 @@ public class HttpUrlHelper {
                     .append("=")
                     .append(entry.getValue());
         }
-
         return encodedParams.toString();
     }
 }

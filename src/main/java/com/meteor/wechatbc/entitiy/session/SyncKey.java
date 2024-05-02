@@ -3,6 +3,7 @@ package com.meteor.wechatbc.entitiy.session;
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
  * 这里的值每次使用过后都会更新
  */
 @Data
-public class SyncKey {
+public class SyncKey implements Serializable {
     @JSONField(name = "Count")
     private int count;
     @JSONField(name = "List")

@@ -12,9 +12,6 @@ import net.minecrell.terminalconsole.SimpleTerminalConsole;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.impl.history.DefaultHistory;
-
-import java.io.File;
-import java.util.Arrays;
 import java.util.Optional;
 
 /**

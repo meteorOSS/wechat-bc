@@ -91,7 +91,6 @@ public class PluginManager {
             // 初始化插件
             PluginLoader.logger.info(" 初始化 {}",pluginDescription.getMain());
             plugin.init(pluginDescription,weChatClient);
-            // 调用插件启动hook
             plugin.onEnable();
             PluginLoader.logger.info("已载入 {}",pluginDescription.getName());
         } catch (Exception e){

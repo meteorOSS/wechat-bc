@@ -8,6 +8,7 @@ import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.impl.command.CommandManager;
 import com.meteor.wechatbc.impl.event.Listener;
 import com.meteor.wechatbc.impl.event.sub.MessageEvent;
+import com.meteor.wechatbc.impl.event.sub.ReceiveMessageEvent;
 import lombok.AllArgsConstructor;
 
 import java.util.Optional;
@@ -19,6 +20,13 @@ import java.util.Optional;
 public class ContactCommandListener implements Listener {
 
     private WeChatClient weChatClient;
+
+    @EventHandler
+    public void onReceiveMessage(MessageEvent messageEvent){
+        Message message = messageEvent.getMessage();
+
+    }
+
 
     @EventHandler
     public void onCommand(MessageEvent messageEvent){

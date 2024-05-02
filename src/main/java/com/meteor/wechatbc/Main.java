@@ -1,6 +1,5 @@
 package com.meteor.wechatbc;
 
-
 import com.meteor.wechatbc.impl.WeChatClient;
 import com.meteor.wechatbc.launch.login.DefaultPrintQRCodeCallBack;
 import com.meteor.wechatbc.plugin.PluginClassLoader;
@@ -8,6 +7,7 @@ import com.meteor.wechatbc.util.VersionCheck;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.net.URL;
 
 
@@ -54,14 +54,18 @@ public class Main{
         this.infoLogo();
         Thread.currentThread().setName(MAIN_THREAD_NAME);
         weChatClient = new WeChatClient();
+
         // 登录
         weChatClient.login(new DefaultPrintQRCodeCallBack());
+
         try {
-            // 挂起控制台
+            weChatClient.getWeChatCore().getSession().saveHotLoginData(new File("hotLogin.dat"));
             weChatClient.loop();
-        }finally {
+        } catch (Exception e) {
             weChatClient.stop();
+            throw new RuntimeException(e);
         }
+
         return 0;
     }
 }

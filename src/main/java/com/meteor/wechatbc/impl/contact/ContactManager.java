@@ -74,7 +74,7 @@ public class ContactManager {
         return retrievalTypeRetrievalStrategyMap.get(RetrievalType.REMARK_NAME).getContact(contactMap,remark);
     }
 
-    private Contact getContact(String userName){
+    public Contact getContact(String userName){
 
         Contact user = weChatClient.getWeChatCore().getSession().getWxInitInfo().getUser();
         if(user.getUserName().equalsIgnoreCase(userName)){

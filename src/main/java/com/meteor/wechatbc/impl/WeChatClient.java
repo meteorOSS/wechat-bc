@@ -18,8 +18,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.spi.LoggerAdapter;
-import org.jline.utils.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,7 +50,6 @@ public class WeChatClient {
             this.weChatCore = new WeChatCoreImpl(this,
                     baseRequest);
             this.weChatCore.getHttpAPI().init();
-
             return true;
         }catch (Exception e){
             return false;
@@ -69,6 +66,8 @@ public class WeChatClient {
         if(!iconFolder.exists()) iconFolder.mkdirs();
         if(!voiceFolder.exists()) voiceFolder.mkdirs();
     }
+
+
 
     /**
      * 启动
@@ -96,6 +95,8 @@ public class WeChatClient {
         this.pluginManager = new PluginManager(this);
     }
 
+    private Console console;
+
     /**
      * 如果需要控制台的话
      * 调用该方法挂起
@@ -104,7 +105,7 @@ public class WeChatClient {
         getLogger().info("启动控制台...");
         weChatCore.getHttpAPI().syncCheck();
         try {
-            new Console(this).start();
+            (this.console = new Console(this)).start();
         } catch (IOException e) {
             e.printStackTrace();
             logger.error("因为一些错误，控制台停止运行了");
@@ -112,6 +113,7 @@ public class WeChatClient {
     }
 
     private WeChatLogin weChatLogin = new WeChatLogin(LogManager.getLogger("WECHAT_LOGIN"));
+
 
     /**
      * 登录
@@ -134,6 +136,8 @@ public class WeChatClient {
 
     public void stop(){
     }
+
+
 
     public File getDataFolder(){
         return new File(System.getProperty("user.dir"));

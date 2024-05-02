@@ -8,11 +8,12 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @ToString
-public class Contact {
+public class Contact implements Serializable {
 
     private transient WeChatClient weChatClient;
 

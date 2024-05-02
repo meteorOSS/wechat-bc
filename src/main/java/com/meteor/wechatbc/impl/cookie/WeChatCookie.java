@@ -19,11 +19,11 @@ public class WeChatCookie implements CookieJar {
         this.cookieListMap = new HashMap<>();
     }
 
-
     @Override
     public void saveFromResponse(HttpUrl httpUrl, List<Cookie> list) {
         cookieListMap.put(httpUrl,list);
     }
+
 
     @Override
     public List<Cookie> loadForRequest(HttpUrl httpUrl) {
